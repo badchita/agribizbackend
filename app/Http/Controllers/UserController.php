@@ -63,7 +63,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-         $user = User::findOrFail($id);
+        $user = User::findOrFail($id);
 
         if ($user->delete()) {
             return new UserResource($user);
