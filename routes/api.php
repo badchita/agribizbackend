@@ -4,7 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ApiAuthController;
 use App\Http\Controllers\ProductsController;
-
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\Controller;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,7 +17,7 @@ use App\Http\Controllers\ProductsController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('cors', 'json.response', 'auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
@@ -32,9 +33,12 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 
 });
 
+Route::post('route',[Controller:: class, 'method'])->middleware('api.admin');
+
 Route::middleware('auth:api')->group(function () {
     // our routes to be protected will go in here
-    Route::post('/logout', 'Auth\ApiAuthController@logout')->name('logout.api');
+    Route::post('/logout', [ApiAuthController::class, 'logout'])->name('logout.api');
+    Route::get('/articles', [ArticleController::class, 'index'])->middleware('api.admin')->name('articles');
 });
 
 Route::get('/products', [ProductsController::class, 'index'])->name('products');
