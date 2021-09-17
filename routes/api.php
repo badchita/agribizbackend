@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\ApiAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,18 +15,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('users', 'UserController@index');
-Route::get('user/{id}', 'UserController@show');
-Route::post('user', 'UserController@store');
-Route::put('user', 'UserController@store');
-Route::delete('user/{id}', 'UserController@destroy');
+Route::group(['middleware' => ['cors', 'json.response']], function () {
 
-Route::get('products', 'ProductController@index');
-Route::get('product/{id}', 'ProductController@show');
-Route::post('product', 'ProductController@store');
-Route::put('product', 'ProductController@store');
-Route::delete('product/{id}', 'ProductController@destroy');
+    // ...
+
+    // public routes
+    Route::post('/login', [ApiAuthController::class, 'login'])->name('login');
+    Route::post('/register',[ApiAuthController::class, 'register'])->name('register');
+
+    // ...
+
+});
+
+Route::middleware('auth:api')->group(function () {
+    // our routes to be protected will go in here
+    Route::post('/logout', 'Auth\ApiAuthController@logout')->name('logout.api');
+});
