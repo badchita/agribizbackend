@@ -17,8 +17,8 @@ use App\Http\Controllers\Controller;
 |
 */
 
-Route::middleware('cors', 'json.response', 'auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('cors', 'json.response', 'auth:api')->get('/user/{id}', function (Request $request, $id) {
+    return $request->user()::findOrFail($id);
 });
 
 Route::group(['middleware' => ['cors', 'json.response']], function () {
