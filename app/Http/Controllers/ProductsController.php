@@ -34,6 +34,8 @@ class ProductsController extends Controller
         $products->name = $request->input('name');
         $products->description = $request->input('description');
         $products->price = $request->input('price');
+        $products->category = $request->input('category');
+        $products->quantity = $request->input('quantity');
         $products->status = $request->input('status');
 
         if ($products->save()) {
