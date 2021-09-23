@@ -22,6 +22,8 @@ class Products extends JsonResource
             'category' => $this->category,
             'quantity' => $this->quantity,
             'status' => $this->status,
+            'product_status' => $this->product_status,
+            'product_location' => $this->product_location,
         ];
     }
 }
