@@ -17,6 +17,11 @@ class ApiAuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'mobile' => 'integer|max:16|unique:users',
+            'user_type' => 'string|max:255',
+            'joined_date' => 'string|max:255',
+            'username' => 'string|max:255',
+            'birthday' => 'string|max:255',
         ]);
         if ($validator->fails())
         {

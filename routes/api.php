@@ -2,9 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\Auth\ApiAuthController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AddressesController;
 use App\Http\Controllers\Controller;
 /*
 |--------------------------------------------------------------------------
@@ -50,3 +52,13 @@ Route::post('/product', [ProductsController::class, 'store'])->name('product');
 Route::put('/product', [ProductsController::class, 'store'])->name('product');
 
 Route::delete('/product/{id}', [ProductsController::class, 'destroy'])->name('product');
+
+Route::get('/addresses', [AddressesController::class, 'index'])->name('addresses');
+
+Route::get('/address/{id}', [AddressesController::class, 'show'])->name('address');
+
+Route::post('/address', [AddressesController::class, 'store'])->name('address');
+
+Route::put('/address', [AddressesController::class, 'store'])->name('address');
+
+Route::delete('/address/{id}', [AddressesController::class, 'destroy'])->name('address');
