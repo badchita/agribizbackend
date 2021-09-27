@@ -24,6 +24,7 @@ class Products extends JsonResource
             'status' => $this->status,
             'product_status' => $this->product_status,
             'product_location' => $this->product_location,
+            'product_location_id' => $this->product_location_id,
         ];
     }
 }
