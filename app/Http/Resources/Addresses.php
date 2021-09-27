@@ -18,10 +18,8 @@ class Addresses extends JsonResource
             'id' => $this->id,
             'street_building' => $this->street_building,
             'barangay' => $this->barangay,
-            'price' => $this->price,
-            'city' => $this->category,
+            'city' => $this->city,
             'province' => $this->province,
-            'status' => $this->status,
             'status' => $this->status,
         ];
     }
