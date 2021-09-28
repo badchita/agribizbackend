@@ -13,11 +13,18 @@ class AddressesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($status=null)
     {
-        $addresses = Addresses::paginate(15);
+        if ($status == 'O') {
+            return Addresses::select('*')->where('status', 'O')->get();
+        } else if ($status == 'V') {
+            return Addresses::select('*')->where('status', 'V')->get();
+        } else {
+            return Addresses::all();
+        }
+        // $addresses = Addresses::paginate(15);
 
-        return AddressesResource::collection($addresses);
+        // return AddressesResource::collection($addresses);
     }
 
     /**
@@ -35,7 +42,7 @@ class AddressesController extends Controller
         $addresses->barangay = $request->input('barangay');
         $addresses->city = $request->input('city');
         $addresses->province = $request->input('province');
-        $addresses->status = 'O';
+        $addresses->status = $request->input('status');
 
         if ($addresses->save()) {
             return new AddressesResource($addresses);

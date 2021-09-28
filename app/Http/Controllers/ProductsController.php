@@ -47,7 +47,7 @@ class ProductsController extends Controller
         $products->product_status = $request->input('product_status');
         $products->product_location = $request->input('product_location');
         $products->product_location_id = $request->input('product_location_id');
-        $products->status = 'O';
+        $products->status = $request->input('status');
 
         if ($products->save()) {
             return new ProductsResource($products);

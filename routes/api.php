@@ -53,7 +53,7 @@ Route::put('/product', [ProductsController::class, 'store'])->name('product');
 
 Route::delete('/product/{id}', [ProductsController::class, 'destroy'])->name('product');
 
-Route::get('/addresses', [AddressesController::class, 'index'])->name('addresses');
+Route::get('/addresses/{status?}', [AddressesController::class, 'index'])->name('addresses');
 
 Route::get('/address/{id}', [AddressesController::class, 'show'])->name('address');
 
