@@ -43,7 +43,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/articles', [ArticleController::class, 'index'])->middleware('api.admin')->name('articles');
 });
 
-Route::get('/products', [ProductsController::class, 'index'])->name('products');
+Route::get('/products/{status?}', [ProductsController::class, 'index'])->name('products');
 
 Route::get('/product/{id}', [ProductsController::class, 'show'])->name('product');
 

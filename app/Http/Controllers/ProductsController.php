@@ -13,11 +13,18 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($status=null)
     {
-        $products = Products::paginate(15);
+        if ($status == 'O') {
+            return Products::select('*')->where('status', 'O')->get();
+        } else if ($status == 'V') {
+            return Products::select('*')->where('status', 'V')->get();
+        } else {
+            return Products::all();
+        }
+        // return Products::select('*')->where('status', 'V')->get();
 
-        return ProductsResource::collection($products);
+        // return ProductsResource::collection($products);
     }
 
     /**
