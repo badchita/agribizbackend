@@ -55,3 +55,4 @@ Route::get('/address/{id}', [AddressesController::class, 'show'])->name('address
 Route::post('/address', [AddressesController::class, 'store'])->name('address');
 Route::put('/address', [AddressesController::class, 'store'])->name('address');
 Route::delete('/address/{id}', [AddressesController::class, 'destroy'])->name('address');
+Route::get('/address/search/{name}', [AddressesController::class, 'search'])->name('address');

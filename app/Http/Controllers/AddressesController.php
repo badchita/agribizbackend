@@ -80,4 +80,15 @@ class AddressesController extends Controller
 
         return null;
     }
+
+        /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function search($name)
+    {
+        return Addresses::select('*')->where('city', 'LIKE', $name . '%')->get();
+    }
 }
