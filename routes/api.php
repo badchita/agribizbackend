@@ -44,21 +44,14 @@ Route::middleware('auth:api')->group(function () {
 });
 
 Route::get('/products/{status?}', [ProductsController::class, 'index'])->name('products');
-
 Route::get('/product/{id}', [ProductsController::class, 'show'])->name('product');
-
 Route::post('/product', [ProductsController::class, 'store'])->name('product');
-
 Route::put('/product', [ProductsController::class, 'store'])->name('product');
-
 Route::delete('/product/{id}', [ProductsController::class, 'destroy'])->name('product');
+Route::get('/product/search/{name}', [ProductsController::class, 'search'])->name('product');
 
 Route::get('/addresses/{status?}', [AddressesController::class, 'index'])->name('addresses');
-
 Route::get('/address/{id}', [AddressesController::class, 'show'])->name('address');
-
 Route::post('/address', [AddressesController::class, 'store'])->name('address');
-
 Route::put('/address', [AddressesController::class, 'store'])->name('address');
-
 Route::delete('/address/{id}', [AddressesController::class, 'destroy'])->name('address');
