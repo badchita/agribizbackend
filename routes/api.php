@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\ApiAuthController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AddressesController;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\Controller;
 /*
 |--------------------------------------------------------------------------
@@ -56,3 +57,10 @@ Route::post('/address', [AddressesController::class, 'store'])->name('address');
 Route::put('/address', [AddressesController::class, 'store'])->name('address');
 Route::delete('/address/{id}', [AddressesController::class, 'destroy'])->name('address');
 Route::get('/address/search/{name}', [AddressesController::class, 'search'])->name('address');
+
+Route::get('/orders/{status?}', [OrdersController::class, 'index'])->name('orders');
+Route::get('/order/{id}', [OrdersController::class, 'show'])->name('order');
+Route::post('/order', [OrdersController::class, 'store'])->name('order');
+Route::put('/order', [OrdersController::class, 'store'])->name('order');
+Route::delete('/order/{id}', [OrdersController::class, 'destroy'])->name('order');
+Route::get('/order/search/{order_number}', [OrdersController::class, 'search'])->name('order');
