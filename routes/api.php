@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AddressesController;
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\NotificationsUserController;
 use App\Http\Controllers\Controller;
 /*
 |--------------------------------------------------------------------------
@@ -64,3 +65,10 @@ Route::post('/order', [OrdersController::class, 'store'])->name('order');
 Route::put('/order', [OrdersController::class, 'store'])->name('order');
 Route::delete('/order/{id}', [OrdersController::class, 'destroy'])->name('order');
 Route::get('/order/search/{order_number}', [OrdersController::class, 'search'])->name('order');
+
+Route::get('/notifications_user/{status?}', [NotificationsUserController::class, 'index'])->name('notifications_user');
+Route::get('/notification_user/{id}', [NotificationsUserController::class, 'show'])->name('notification_user');
+Route::post('/notification_user', [NotificationsUserController::class, 'store'])->name('notification_user');
+Route::put('/notification_user', [NotificationsUserController::class, 'store'])->name('notification_user');
+Route::delete('/notification_user/{id}', [NotificationsUserController::class, 'destroy'])->name('notification_user');
+Route::get('/notification_user/search/{title}', [NotificationsUserController::class, 'search'])->name('notification_user');
