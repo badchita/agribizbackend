@@ -46,8 +46,12 @@ class ProductsController extends Controller
         $products->status = $request->input('status');
         $products->product_status = $request->input('product_status');
         $products->product_location = $request->input('product_location');
-        $products->product_location_id = $request->input('product_location_id');
         $products->status = $request->input('status');
+
+        $products->thumbnail_name = $request->input('thumbnail_name');
+        // $products->thumbnail_name = $request->file('')->hashName();
+        // $request->thumbnail_name->move(public_path('products'), $request->thumbnail_name);
+
 
         if ($products->save()) {
             return new ProductsResource($products);
