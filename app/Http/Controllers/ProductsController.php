@@ -8,64 +8,69 @@ use App\Http\Resources\Products as ProductsResource;
 
 class ProductsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index($status=null)
+    public function index($user_id=null, $status=null)
     {
         if ($status == 'O') {
-            return Products::select('*')->where('status', 'O')->get();
+            return Products::select('*')->where('status', 'O')->where('user_id', $user_id)->get();
         } else if ($status == 'V') {
-            return Products::select('*')->where('status', 'V')->get();
+            return Products::select('*')->where('status', 'V')->where('user_id', $user_id)->get();
         } else {
-            return Products::all();
+            return Products::select('*')->where('user_id', $user_id)->get();
         }
         // return Products::select('*')->where('status', 'V')->get();
 
         // return ProductsResource::collection($products);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $products = $request->isMethod('put') ? Products::findOrFail($request->id) : new Products;
-
-        $products->id = $request->input('id');
+        $products = new Products;
         $products->name = $request->input('name');
         $products->description = $request->input('description');
         $products->price = $request->input('price');
         $products->category = $request->input('category');
         $products->quantity = $request->input('quantity');
-        $products->status = $request->input('status');
         $products->product_status = $request->input('product_status');
         $products->product_location = $request->input('product_location');
+        $products->product_location_id = $request->input('product_location_id');
         $products->status = $request->input('status');
-
-        $products->thumbnail_name = $request->input('thumbnail_name');
-        // $products->thumbnail_name = $request->file('')->hashName();
-        // $request->thumbnail_name->move(public_path('products'), $request->thumbnail_name);
-
-
-        if ($products->save()) {
-            return new ProductsResource($products);
-        }
+        $products->user_id = $request->input('user_id');
+        $products->save();
 
         return null;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function update(Request $request)
+    {
+        Products::where(['id' => $request->id])->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'category' => $request->category,
+            'quantity' => $request->quantity,
+            'product_status' => $request->product_status,
+            'product_location' => $request->product_location,
+            'product_location_id' => $request->product_location_id,
+            'status' => $request->status,
+            'user_id' => $request->user_id,
+        ]);
+    }
+
+    public function archive(Request $request)
+    {
+        Products::where(['id' => $request->id])->update([
+            'status' => $request->status,
+        ]);
+    }
+
+    public function upload(Request $request)
+    {
+        $imageFullName = $request->file('thumbnail_name')->getClientOriginalName();
+        $request->file('thumbnail_name')->storeAs('products', $imageFullName);
+
+        return null;
+    }
+
     public function show($id)
     {
         $products = Products::findOrFail($id);
@@ -73,12 +78,6 @@ class ProductsController extends Controller
         return new ProductsResource($products);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $products = Products::findOrFail($id);
@@ -90,12 +89,6 @@ class ProductsController extends Controller
         return null;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function search($name)
     {
         return Products::select('*')->where('name', 'LIKE', $name . '%')->get();

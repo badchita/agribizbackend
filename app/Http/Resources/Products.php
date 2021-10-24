@@ -26,6 +26,7 @@ class Products extends JsonResource
             'product_location' => $this->product_location,
             'product_location_id' => $this->product_location_id,
             'thumbnail_name' => $this->thumbnail_name,
+            'user_id' => $this->user_id,
         ];
     }
 }

@@ -45,12 +45,15 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/articles', [ArticleController::class, 'index'])->middleware('api.admin')->name('articles');
 });
 
-Route::get('/products/{status?}', [ProductsController::class, 'index'])->name('products');
+Route::get('/products/{user_id}/{status?}', [ProductsController::class, 'index'])->name('products');
 Route::get('/product/{id}', [ProductsController::class, 'show'])->name('product');
 Route::post('/product', [ProductsController::class, 'store'])->name('product');
-Route::put('/product', [ProductsController::class, 'store'])->name('product');
+Route::put('/product', [ProductsController::class, 'update'])->name('product');
+Route::patch('/product', [ProductsController::class, 'archive'])->name('product');
 Route::delete('/product/{id}', [ProductsController::class, 'destroy'])->name('product');
 Route::get('/product/search/{name}', [ProductsController::class, 'search'])->name('product');
+
+Route::post('/upload', [ProductsController::class, 'upload'])->name('upload');
 
 Route::get('/addresses/{status?}', [AddressesController::class, 'index'])->name('addresses');
 Route::get('/address/{id}', [AddressesController::class, 'show'])->name('address');
