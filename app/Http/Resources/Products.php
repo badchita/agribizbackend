@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Addresses;
+use App\Models\User;
 
 class Products extends JsonResource
 {
@@ -26,7 +28,8 @@ class Products extends JsonResource
             'product_location' => $this->product_location,
             'product_location_id' => $this->product_location_id,
             'thumbnail_name' => $this->thumbnail_name,
-            'user_id' => $this->user_id,
+            'user_id' => User::findOrFail($this->user_id),
+            'addresses' => Addresses::findOrFail($this->product_location_id),
         ];
     }
 }
