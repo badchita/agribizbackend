@@ -29,7 +29,7 @@ class Products extends JsonResource
             'product_location' => $this->product_location,
             'product_location_id' => $this->product_location_id,
             'thumbnail_name' => $this->thumbnail_name,
-            'user' => User::findOrFail($this->user_id),
+            'seller' => User::findOrFail($this->user_id),
             'addresses' => Addresses::collection($this->whenLoaded('addresses')),
         ];
     }
