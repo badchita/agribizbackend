@@ -52,13 +52,15 @@ Route::put('/product', [ProductsController::class, 'update'])->name('product');
 Route::patch('/product', [ProductsController::class, 'archive'])->name('product');
 Route::delete('/product/{id}', [ProductsController::class, 'destroy'])->name('product');
 Route::get('/product/search/{name}', [ProductsController::class, 'search'])->name('product');
+Route::get('/products', [ProductsController::class, 'all'])->name('products');
 
 Route::post('/upload', [ProductsController::class, 'upload'])->name('upload');
 
-Route::get('/addresses/{status?}', [AddressesController::class, 'index'])->name('addresses');
+Route::get('/addresses/{user_id}/{status?}', [AddressesController::class, 'index'])->name('addresses');
 Route::get('/address/{id}', [AddressesController::class, 'show'])->name('address');
 Route::post('/address', [AddressesController::class, 'store'])->name('address');
-Route::put('/address', [AddressesController::class, 'store'])->name('address');
+Route::put('/address', [AddressesController::class, 'update'])->name('address');
+Route::patch('/address', [AddressesController::class, 'archive'])->name('address');
 Route::delete('/address/{id}', [AddressesController::class, 'destroy'])->name('address');
 Route::get('/address/search/{name}', [AddressesController::class, 'search'])->name('address');
 

@@ -22,6 +22,11 @@ class ProductsController extends Controller
         // return ProductsResource::collection($products);
     }
 
+    public function all()
+    {
+        return Products::select('*')->where('status', 'O')->get();
+    }
+
     public function store(Request $request)
     {
         $products = new Products;

@@ -21,6 +21,7 @@ class Addresses extends JsonResource
             'city' => $this->city,
             'province' => $this->province,
             'status' => $this->status,
+            'user_id' => $this->user_id,
         ];
     }
 }

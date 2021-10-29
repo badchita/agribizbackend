@@ -5,58 +5,57 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Addresses;
 use App\Http\Resources\Addresses as AddressesResource;
+use Faker\Provider\ar_JO\Address;
 
 class AddressesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index($status=null)
+    public function index($user_id=null, $status=null)
     {
         if ($status == 'O') {
-            return Addresses::select('*')->where('status', 'O')->get();
+            return Addresses::select('*')->where('status', 'O')->where('user_id', $user_id)->get();
         } else if ($status == 'V') {
-            return Addresses::select('*')->where('status', 'V')->get();
+            return Addresses::select('*')->where('status', 'V')->where('user_id', $user_id)->get();
         } else {
-            return Addresses::all();
+            return Addresses::select('*')->where('user_id', $user_id)->get();
         }
         // $addresses = Addresses::paginate(15);
 
         // return AddressesResource::collection($addresses);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $addresses = $request->isMethod('put') ? Addresses::findOrFail($request->id) : new Addresses;
-
-        $addresses->id = $request->input('id');
+        $addresses = new Addresses;
         $addresses->street_building = $request->input('street_building');
         $addresses->barangay = $request->input('barangay');
         $addresses->city = $request->input('city');
         $addresses->province = $request->input('province');
         $addresses->status = $request->input('status');
-
-        if ($addresses->save()) {
-            return new AddressesResource($addresses);
-        }
+        $addresses->user_id = $request->input('user_id');
+        $addresses->save();
 
         return null;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function update(Request $request)
+    {
+        Addresses::where(['id' => $request->id])->update([
+            'street_building' => $request->street_building,
+            'barangay' => $request->barangay,
+            'city' => $request->city,
+            'province' => $request->province,
+            'status' => $request->status,
+            'user_id' => $request->user_id,
+        ]);
+    }
+
+    public function archive(Request $request)
+    {
+        Addresses::where(['id' => $request->id])->update([
+            'status' => $request->status,
+        ]);
+    }
+
     public function show($id)
     {
         $addresses = Addresses::findOrFail($id);
@@ -64,12 +63,6 @@ class AddressesController extends Controller
         return new AddressesResource($addresses);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $addresses = Addresses::findOrFail($id);
@@ -81,12 +74,6 @@ class AddressesController extends Controller
         return null;
     }
 
-        /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function search($name)
     {
         return Addresses::select('*')->where('city', 'LIKE', $name . '%')->get();

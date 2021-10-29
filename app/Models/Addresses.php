@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Addresses extends Model
 {
-    use HasFactory;
+    protected $table = 'addresses';
+    protected $primaryKey ='id';
+    protected $fillable = ['id', 'street_building', 'barangay', 'city', 'province', 'user_id', 'status'];
 }
