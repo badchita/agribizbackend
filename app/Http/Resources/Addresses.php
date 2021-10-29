@@ -14,6 +14,7 @@ class Addresses extends JsonResource
      */
     public function toArray($request)
     {
+        // $products = $this->whenLoaded('products');
         return [
             'id' => $this->id,
             'street_building' => $this->street_building,
@@ -22,6 +23,7 @@ class Addresses extends JsonResource
             'province' => $this->province,
             'status' => $this->status,
             'user_id' => $this->user_id,
+            // 'company' => new Products($products),
         ];
     }
 }

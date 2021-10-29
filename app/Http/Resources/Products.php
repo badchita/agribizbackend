@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Models\Addresses;
+use App\Http\Resources\Addresses;
 use App\Models\User;
 
 class Products extends JsonResource
@@ -16,6 +16,7 @@ class Products extends JsonResource
      */
     public function toArray($request)
     {
+        // $addresses = $this->whenLoaded('addresses');
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -28,8 +29,8 @@ class Products extends JsonResource
             'product_location' => $this->product_location,
             'product_location_id' => $this->product_location_id,
             'thumbnail_name' => $this->thumbnail_name,
-            'user_id' => User::findOrFail($this->user_id),
-            'addresses' => Addresses::findOrFail($this->product_location_id),
+            'user' => User::findOrFail($this->user_id),
+            'addresses' => Addresses::collection($this->whenLoaded('addresses')),
         ];
     }
 }

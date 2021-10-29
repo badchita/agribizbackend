@@ -80,7 +80,7 @@ class ProductsController extends Controller
     {
         $products = Products::findOrFail($id);
 
-        return new ProductsResource($products);
+        return new ProductsResource($products->loadMissing(['addresses']));
     }
 
     public function destroy($id)
