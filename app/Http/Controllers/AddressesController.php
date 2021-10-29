@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Addresses;
-use App\Http\Resources\Addresses as AddressesResource;
+use App\Http\Resources\AddressesResources;
 use Faker\Provider\ar_JO\Address;
 
 class AddressesController extends Controller
@@ -30,6 +30,7 @@ class AddressesController extends Controller
         $addresses->barangay = $request->input('barangay');
         $addresses->city = $request->input('city');
         $addresses->province = $request->input('province');
+        $addresses->shipping_fee = $request->input('shipping_fee');
         $addresses->status = $request->input('status');
         $addresses->user_id = $request->input('user_id');
         $addresses->save();
@@ -44,6 +45,7 @@ class AddressesController extends Controller
             'barangay' => $request->barangay,
             'city' => $request->city,
             'province' => $request->province,
+            'shipping_fee' => $request->shipping_fee,
             'status' => $request->status,
             'user_id' => $request->user_id,
         ]);
@@ -60,7 +62,7 @@ class AddressesController extends Controller
     {
         $addresses = Addresses::findOrFail($id);
 
-        return new AddressesResource($addresses);
+        return new AddressesResources($addresses);
     }
 
     public function destroy($id)
@@ -68,7 +70,7 @@ class AddressesController extends Controller
         $addresses = Addresses::findOrFail($id);
 
         if ($addresses->delete()) {
-            return new AddressesResource($addresses);
+            return new AddressesResources($addresses);
         }
 
         return null;

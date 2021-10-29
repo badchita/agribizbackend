@@ -24,7 +24,7 @@ class ProductsController extends Controller
 
     public function all()
     {
-        return Products::select('*')->where('status', 'O')->get();
+        return Products::select('*')->where('status', 'O')->orwhere('product_status', 'Available')->orwhere('product_status', 'Out Of Stocks')->get();
     }
 
     public function store(Request $request)
