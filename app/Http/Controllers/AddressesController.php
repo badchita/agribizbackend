@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Addresses;
 use App\Http\Resources\AddressesResources;
-use Faker\Provider\ar_JO\Address;
 
 class AddressesController extends Controller
 {

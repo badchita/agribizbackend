@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Addresses;
 use App\Models\User;
 
-class Products extends JsonResource
+class ProductsResources extends JsonResource
 {
     /**
      * Transform the resource into an array.

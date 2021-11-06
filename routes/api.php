@@ -9,7 +9,10 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AddressesController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\NotificationsUserController;
+use App\Http\Controllers\LikeProductsController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,9 +24,7 @@ use App\Http\Controllers\Controller;
 |
 */
 
-Route::middleware('cors', 'json.response', 'auth:api')->get('/user/{id}', function (Request $request, $id) {
-    return $request->user()::findOrFail($id);
-});
+Route::middleware('cors', 'json.response', 'auth:api')->get('/user/{id}', [UserController:: class, 'show'])->name('user');
 
 Route::group(['middleware' => ['cors', 'json.response']], function () {
 
@@ -64,10 +65,11 @@ Route::patch('/address', [AddressesController::class, 'archive'])->name('address
 Route::delete('/address/{id}', [AddressesController::class, 'destroy'])->name('address');
 Route::get('/address/search/{name}', [AddressesController::class, 'search'])->name('address');
 
-Route::get('/orders/{status?}', [OrdersController::class, 'index'])->name('orders');
+Route::get('/orders/{user_id}/{status?}', [OrdersController::class, 'index'])->name('orders');
 Route::get('/order/{id}', [OrdersController::class, 'show'])->name('order');
 Route::post('/order', [OrdersController::class, 'store'])->name('order');
 Route::put('/order', [OrdersController::class, 'store'])->name('order');
+Route::patch('/order', [OrdersController::class, 'archive'])->name('order');
 Route::delete('/order/{id}', [OrdersController::class, 'destroy'])->name('order');
 Route::get('/order/search/{order_number}', [OrdersController::class, 'search'])->name('order');
 
@@ -77,3 +79,7 @@ Route::post('/notification_user', [NotificationsUserController::class, 'store'])
 Route::put('/notification_user', [NotificationsUserController::class, 'store'])->name('notification_user');
 Route::delete('/notification_user/{id}', [NotificationsUserController::class, 'destroy'])->name('notification_user');
 Route::get('/notification_user/search/{title}', [NotificationsUserController::class, 'search'])->name('notification_user');
+
+Route::get('/like_products/{product_id}/{user_id?}', [LikeProductsController::class, 'all'])->name('like_products');
+Route::post('/like_products', [LikeProductsController::class, 'store'])->name('like_products');
+Route::patch('/like_products', [LikeProductsController::class, 'archive'])->name('like_products');

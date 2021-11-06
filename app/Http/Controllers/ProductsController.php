@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Products;
-use App\Http\Resources\Products as ProductsResource;
+use App\Http\Resources\ProductsResources;
 
 class ProductsController extends Controller
 {
@@ -80,7 +80,7 @@ class ProductsController extends Controller
     {
         $products = Products::findOrFail($id);
 
-        return new ProductsResource($products->loadMissing(['addresses']));
+        return new ProductsResources($products->loadMissing(['addresses']));
     }
 
     public function destroy($id)
@@ -88,7 +88,7 @@ class ProductsController extends Controller
         $products = Products::findOrFail($id);
 
         if ($products->delete()) {
-            return new ProductsResource($products);
+            return new ProductsResources($products);
         }
 
         return null;

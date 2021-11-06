@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Products;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Orders extends JsonResource
+class OrdersResources extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -29,6 +30,7 @@ class Orders extends JsonResource
             'order_total_price' => $this->order_total_price,
             'status' => $this->status,
             'order_status' => $this->order_status,
+            'product_Details' => Products::findOrFail($this->product_id),
         ];
     }
 }
