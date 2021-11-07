@@ -12,11 +12,11 @@ class Addresses extends Model
 
     public function products()
     {
-        return $this->belongsTo(Products::class, 'id');
+        return $this->belongsTo(Products::class, 'product_id');
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

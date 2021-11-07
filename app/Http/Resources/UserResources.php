@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Addresses;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResources extends JsonResource
@@ -24,7 +25,8 @@ class UserResources extends JsonResource
             'user_type' => $this->user_type,
             'joined_date' => $this->joined_date,
             'username' => $this->username,
-            'addresses' => AddressesResources::collection($this->whenLoaded('addresses')),
+            'address_id' => $this->address_id,
+            'address_detail' => Addresses::find($this->address_id),
         ];
     }
 }

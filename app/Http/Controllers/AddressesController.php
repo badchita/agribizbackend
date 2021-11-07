@@ -30,7 +30,9 @@ class AddressesController extends Controller
         $addresses->city = $request->input('city');
         $addresses->province = $request->input('province');
         $addresses->shipping_fee = $request->input('shipping_fee');
-        $addresses->status = $request->input('status');
+        $addresses->name = $request->input('name');
+        $addresses->mobile = $request->input('mobile');
+        $addresses->status = 'O';
         $addresses->user_id = $request->input('user_id');
         $addresses->save();
 
@@ -45,6 +47,8 @@ class AddressesController extends Controller
             'city' => $request->city,
             'province' => $request->province,
             'shipping_fee' => $request->shipping_fee,
+            'name' => $request->name,
+            'mobile' => $request->mobile,
             'status' => $request->status,
             'user_id' => $request->user_id,
         ]);

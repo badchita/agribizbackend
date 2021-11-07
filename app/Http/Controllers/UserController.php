@@ -13,6 +13,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        return new UserResources($user->loadMissing(['addresses']));
+        return new UserResources($user);
     }
 }

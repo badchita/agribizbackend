@@ -78,7 +78,7 @@ class ProductsController extends Controller
 
     public function show($id)
     {
-        $products = Products::findOrFail($id);
+        $products = Products::find($id);
 
         return new ProductsResources($products->loadMissing(['addresses']));
     }

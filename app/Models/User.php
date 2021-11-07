@@ -20,7 +20,8 @@ class User extends Authenticatable
         'mobile',
         'user_type',
         'joined_date',
-        'username'
+        'username',
+        'address_id',
     ];
 
     public function addresses()
