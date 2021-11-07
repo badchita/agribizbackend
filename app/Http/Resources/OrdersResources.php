@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Addresses;
 use App\Models\Products;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,16 +22,15 @@ class OrdersResources extends JsonResource
             'product_id' => $this->product_id,
             'ship_from_address_id' => $this->ship_from_address_id,
             'order_number' => $this->order_number,
-            'product_name' => $this->product_name,
-            'product_price' => $this->product_price,
+            'product_total_price' => $this->product_total_price,
             'quantity' => $this->quantity,
-            'ship_from_address' => $this->ship_from_address,
-            'ship_to_address' => $this->ship_to_address,
-            'shipping_fee' => $this->shipping_fee,
+            'ship_to_address_id' => $this->ship_to_address_id,
             'order_total_price' => $this->order_total_price,
             'status' => $this->status,
             'order_status' => $this->order_status,
             'product_Details' => Products::findOrFail($this->product_id),
+            'ship_from_address_details' => Addresses::findOrFail($this->ship_from_address_id),
+            'ship_to_address_details' => Addresses::findOrFail($this->ship_to_address_id),
         ];
     }
 }

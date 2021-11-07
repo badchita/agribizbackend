@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Orders;
 use App\Http\Resources\OrdersResources;
 
+use Illuminate\Support\Facades\DB;
+
 class OrdersController extends Controller
 {
     /**
@@ -13,18 +15,18 @@ class OrdersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($product_price=null)
+    public function index($seller_id=null, $status=null)
     {
-        if ($product_price == 'O') {
-            return Orders::select('*')->where('product_price', 'O')->get();
-        } else if ($product_price == 'V') {
-            return Orders::select('*')->where('product_price', 'V')->get();
+        if ($status == 'O') {
+            $orders = Orders::select('*')->where('status', 'O')->where('seller_id', $seller_id)->get();
+            return OrdersResources::collection($orders);
+        } else if ($status == 'V') {
+            $orders = Orders::select('*')->where('status', 'V')->where('seller_id', $seller_id)->get();
+            return OrdersResources::collection($orders);
         } else {
-            return Orders::all();
+            $orders = Orders::select('*')->where('seller_id', $seller_id)->get();
+            return OrdersResources::collection($orders);
         }
-        // return Products::select('*')->where('product_price', 'V')->get();
-
-        // return ProductsResource::collection($products);
     }
 
     public function store(Request $request)
