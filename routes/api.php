@@ -25,6 +25,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::middleware('cors', 'json.response', 'auth:api')->get('/user/{id}', [UserController:: class, 'show'])->name('user');
+Route::middleware('cors', 'json.response', 'auth:api')->put('/user', [UserController:: class, 'update'])->name('user');
 
 Route::group(['middleware' => ['cors', 'json.response']], function () {
 

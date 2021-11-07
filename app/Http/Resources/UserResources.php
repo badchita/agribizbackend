@@ -26,7 +26,7 @@ class UserResources extends JsonResource
             'joined_date' => $this->joined_date,
             'username' => $this->username,
             'address_id' => $this->address_id,
-            'address_detail' => Addresses::find($this->address_id),
+            'selected_address' => Addresses::find($this->address_id),
         ];
     }
 }
