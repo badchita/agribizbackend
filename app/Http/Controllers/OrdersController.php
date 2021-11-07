@@ -32,18 +32,24 @@ class OrdersController extends Controller
         $orders = new Orders;
         $orders->id = $request->input('id');
         $orders->user_id = $request->input('user_id');
+        $orders->seller_id = $request->input('seller_id');
         $orders->product_id = $request->input('product_id');
         $orders->ship_from_address_id = $request->input('ship_from_address_id');
-        $orders->order_number = $request->input('order_number');
-        $orders->product_name = $request->input('product_name');
-        $orders->product_price = $request->input('product_price');
+
+        $unique_no = Orders::orderBy('id', 'DESC')->pluck('id')->first();
+        if ($unique_no == null or $unique_no =="") {
+            $unique_no = 1;
+        } else {
+            $unique_no = $unique_no + 1;
+        }
+        $orders->order_number = 'ORD'.$unique_no;
+
+        $orders->product_total_price = $request->input('product_total_price');
         $orders->quantity = $request->input('quantity');
-        $orders->ship_from_address = $request->input('ship_from_address');
-        $orders->ship_to_address = $request->input('ship_to_address');
-        $orders->shipping_fee = $request->input('shipping_fee');
+        $orders->ship_to_address_id = $request->input('ship_to_address_id');
         $orders->order_total_price = $request->input('order_total_price');
-        $orders->status = $request->input('status');
-        $orders->order_status = $request->input('order_status');
+        $orders->status = 'O';
+        $orders->order_status = '0';
         $orders->save();
 
         return null;
