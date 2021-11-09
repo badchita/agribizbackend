@@ -18,10 +18,10 @@ class OrdersController extends Controller
     public function index($seller_id=null, $status=null)
     {
         if ($status == 'O') {
-            $orders = Orders::select('*')->where('status', 'O')->where('seller_id', $seller_id)->get();
+            $orders = Orders::select('*')->where('status', $status)->where('seller_id', $seller_id)->get();
             return OrdersResources::collection($orders);
         } else if ($status == 'V') {
-            $orders = Orders::select('*')->where('status', 'V')->where('seller_id', $seller_id)->get();
+            $orders = Orders::select('*')->where('status', $status)->where('seller_id', $seller_id)->get();
             return OrdersResources::collection($orders);
         } else {
             $orders = Orders::select('*')->where('seller_id', $seller_id)->get();
@@ -102,8 +102,9 @@ class OrdersController extends Controller
         return null;
     }
 
-    public function search($order_number)
+    public function search($order_number, $seller_id)
     {
-        return Orders::select('*')->where('order_number', 'LIKE', $order_number . '%')->get();
+        $orders = Orders::select('*')->where('order_number', 'LIKE', $order_number . '%')->where('seller_id', $seller_id)->get();
+        return OrdersResources::collection($orders);
     }
 }

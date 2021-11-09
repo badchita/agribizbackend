@@ -28,7 +28,7 @@ class OrdersResources extends JsonResource
             'order_total_price' => $this->order_total_price,
             'status' => $this->status,
             'order_status' => $this->order_status,
-            'product_Details' => Products::findOrFail($this->product_id),
+            'product_details' => Products::findOrFail($this->product_id),
             'ship_from_address_details' => Addresses::findOrFail($this->ship_from_address_id),
             'ship_to_address_details' => Addresses::findOrFail($this->ship_to_address_id),
         ];

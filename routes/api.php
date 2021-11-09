@@ -72,7 +72,7 @@ Route::post('/order', [OrdersController::class, 'store'])->name('order');
 Route::put('/order', [OrdersController::class, 'store'])->name('order');
 Route::patch('/order', [OrdersController::class, 'archive'])->name('order');
 Route::delete('/order/{id}', [OrdersController::class, 'destroy'])->name('order');
-Route::get('/order/search/{order_number}', [OrdersController::class, 'search'])->name('order');
+Route::get('/order/search/{order_number}/{user_id}', [OrdersController::class, 'search'])->name('order');
 
 Route::get('/notifications_user/{status?}', [NotificationsUserController::class, 'index'])->name('notifications_user');
 Route::get('/notification_user/{id}', [NotificationsUserController::class, 'show'])->name('notification_user');
