@@ -11,9 +11,9 @@ class ProductsController extends Controller
     public function index($user_id=null, $status=null)
     {
         if ($status == 'O') {
-            return Products::select('*')->where('status', 'O')->where('user_id', $user_id)->get();
+            return Products::select('*')->where('status', 'O')->where('user_id', $user_id)->where('product_status', 'Available')->get();
         } else if ($status == 'V') {
-            return Products::select('*')->where('status', 'V')->where('user_id', $user_id)->get();
+            return Products::select('*')->where('status', 'V')->where('user_id', $user_id)->where('product_status', 'Archive')->orwhere('product_status', 'Out Of Stocks')->get();
         } else {
             return Products::select('*')->where('user_id', $user_id)->get();
         }
@@ -24,7 +24,7 @@ class ProductsController extends Controller
 
     public function all()
     {
-        return Products::select('*')->where('status', 'O')->orwhere('product_status', 'Available')->orwhere('product_status', 'Out Of Stocks')->get();
+        return Products::select('*')->where('status', 'O')->where('product_status', 'Available')->orwhere('product_status', 'Out Of Stocks')->get();
     }
 
     public function store(Request $request)
@@ -65,6 +65,7 @@ class ProductsController extends Controller
     {
         Products::where(['id' => $request->id])->update([
             'status' => $request->status,
+            'product_status' => $request->product_status,
         ]);
     }
 
