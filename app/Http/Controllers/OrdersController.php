@@ -107,4 +107,11 @@ class OrdersController extends Controller
         $orders = Orders::select('*')->where('order_number', 'LIKE', $order_number . '%')->where('seller_id', $seller_id)->get();
         return OrdersResources::collection($orders);
     }
+
+    public function updateStatus(Request $request)
+    {
+        Orders::where(['id' => $request->id])->update([
+            'order_status' => $request->order_status,
+        ]);
+    }
 }
