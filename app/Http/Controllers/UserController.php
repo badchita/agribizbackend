@@ -9,9 +9,17 @@ use App\Http\Resources\UserResources;
 
 class UserController extends Controller
 {
-    public function index ($user_id) {
-        $users = User::select('*')->where('id', '!=', $user_id)->get();
-        return UserResources::collection($users);
+    public function index ($user_id, $status=null) {
+        if ($status == 'O') {
+            $users = User::select('*')->where('status', $status)->where('id', '!=', $user_id)->get();
+            return UserResources::collection($users);
+        } else if ($status == 'V') {
+            $orders = User::select('*')->where('status', $status)->where('id', '!=', $user_id)->get();
+            return UserResources::collection($orders);
+        } else {
+            $orders = User::select('*')->where('id', '!=', $user_id)->get();
+            return UserResources::collection($orders);
+        }
     }
 
     public function show($id)
@@ -20,6 +28,7 @@ class UserController extends Controller
 
         return new UserResources($user);
     }
+
     public function update(Request $request)
     {
         User::where(['id' => $request->id])->update([
@@ -31,6 +40,13 @@ class UserController extends Controller
             'joined_date' => $request->joined_date,
             'username' => $request->username,
             'address_id' => $request->address_id,
+        ]);
+    }
+
+    public function archive(Request $request)
+    {
+        User::where(['id' => $request->id])->update([
+            'status' => $request->status,
         ]);
     }
 }

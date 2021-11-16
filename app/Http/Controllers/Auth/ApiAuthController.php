@@ -45,27 +45,34 @@ class ApiAuthController extends Controller
         {
             return response(['errors'=>$validator->errors()->all()], 401);
         }
-        $user = User::where('email', $request->email)->first();
-        if ($user) {
-            if (Hash::check($request->password, $user->password)) {
-                $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-                User::where(['id'=> $user->id])->update([
-                    'isOnline' => 1,
-                ]);
-                $response = [
-                    'token' => $token,
-                    'user_id' => $user->id,
-                    'user_type' => $user->user_type,
-                ];
-                return response($response, 200);
-            } else {
-                $response = ["message" => "Password Does Not Match"];
-                return response($response, 402);
-            }
+        $status = User::where('email', $request->email)->where('status', 'V')->first();
+        if ($status) {
+            $response = ["message" =>'User Disabled'];
+            return response($response, 404);
         } else {
-            $response = ["message" =>'User does not exist'];
-            return response($response, 403);
+            $user = User::where('email', $request->email)->first();
+            if ($user) {
+                if (Hash::check($request->password, $user->password)) {
+                    $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+                    User::where(['id'=> $user->id])->update([
+                        'isOnline' => 1,
+                    ]);
+                    $response = [
+                        'token' => $token,
+                        'user_id' => $user->id,
+                        'user_type' => $user->user_type,
+                    ];
+                    return response($response, 200);
+                } else {
+                    $response = ["message" => "Password Does Not Match"];
+                    return response($response, 402);
+                }
+            } else {
+                $response = ["message" =>'User does not exist'];
+                return response($response, 403);
+            }
         }
+
     }
 
     public function logout (Request $request) {

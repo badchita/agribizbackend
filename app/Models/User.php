@@ -23,6 +23,7 @@ class User extends Authenticatable
         'username',
         'address_id',
         'isOnline',
+        'status',
     ];
 
     public function addresses()

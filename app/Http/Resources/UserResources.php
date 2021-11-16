@@ -27,6 +27,7 @@ class UserResources extends JsonResource
             'username' => $this->username,
             'address_id' => $this->address_id,
             'isOnline' => $this->isOnline,
+            'status' => $this->status,
             'selected_address' => Addresses::find($this->address_id),
         ];
     }
