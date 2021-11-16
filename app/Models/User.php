@@ -22,6 +22,7 @@ class User extends Authenticatable
         'joined_date',
         'username',
         'address_id',
+        'isOnline',
     ];
 
     public function addresses()

@@ -9,6 +9,11 @@ use App\Http\Resources\UserResources;
 
 class UserController extends Controller
 {
+    public function index ($user_id) {
+        $users = User::select('*')->where('id', '!=', $user_id)->get();
+        return UserResources::collection($users);
+    }
+
     public function show($id)
     {
         $user = User::findOrFail($id);
@@ -20,7 +25,6 @@ class UserController extends Controller
         User::where(['id' => $request->id])->update([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
             'birthday' => $request->birthday,
             'mobile' => $request->mobile,
             'user_type' => $request->user_type,

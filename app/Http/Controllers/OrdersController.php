@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class OrdersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index($seller_id=null, $status=null)
     {
         if ($status == 'O') {

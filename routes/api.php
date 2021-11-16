@@ -12,6 +12,7 @@ use App\Http\Controllers\NotificationsUserController;
 use App\Http\Controllers\LikeProductsController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
+Route::get('/users/{user_id}', [UserController::class, 'index'])->name('user');
 Route::middleware('cors', 'json.response', 'auth:api')->get('/user/{id}', [UserController:: class, 'show'])->name('user');
 Route::middleware('cors', 'json.response', 'auth:api')->put('/user', [UserController:: class, 'update'])->name('user');
 
@@ -85,3 +87,7 @@ Route::get('/notification_user/search/{title}', [NotificationsUserController::cl
 Route::get('/like_products/{product_id}/{user_id?}', [LikeProductsController::class, 'all'])->name('like_products');
 Route::post('/like_products', [LikeProductsController::class, 'store'])->name('like_products');
 Route::patch('/like_products', [LikeProductsController::class, 'archive'])->name('like_products');
+
+Route::get('/dashboards/{user_id}', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard/{id}', [DashboardController::class, 'show'])->name('dashboard');
+Route::post('/dashboard', [DashboardController::class, 'store'])->name('dashboard');

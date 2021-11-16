@@ -49,9 +49,13 @@ class ApiAuthController extends Controller
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+                User::where(['id'=> $user->id])->update([
+                    'isOnline' => 1,
+                ]);
                 $response = [
                     'token' => $token,
-                    'user_id' => $user->id
+                    'user_id' => $user->id,
+                    'user_type' => $user->user_type,
                 ];
                 return response($response, 200);
             } else {
@@ -67,6 +71,9 @@ class ApiAuthController extends Controller
     public function logout (Request $request) {
         $token = $request->user()->token();
         $token->revoke();
+        User::where(['id'=> $request->user_id])->update([
+            'isOnline' => 0,
+        ]);
         $response = ['message' => 'You have been successfully logged out!'];
         return response($response, 200);
     }

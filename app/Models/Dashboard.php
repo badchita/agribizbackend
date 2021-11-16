@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Orders extends Model
+class Dashboard extends Model
 {
-    public function dashboard()
+    public function orders()
     {
-        return $this->belongsTo(Dashboard::class, 'user_id');
+        return $this->hasMany(Orders::class, 'seller_id');
     }
 }
