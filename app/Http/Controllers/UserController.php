@@ -49,4 +49,10 @@ class UserController extends Controller
             'status' => $request->status,
         ]);
     }
+
+    public function search($name, $user_id)
+    {
+        $users = User::select('*')->where('name', 'LIKE', $name . '%')->where('id', '!=', $user_id)->get();
+        return UserResources::collection($users);
+    }
 }

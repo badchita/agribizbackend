@@ -27,6 +27,7 @@ use App\Http\Controllers\DashboardController;
 
 Route::get('/users/{user_id}/{status?}', [UserController::class, 'index'])->name('user');
 Route::patch('/user', [UserController::class, 'archive'])->name('user');
+Route::get('/user/search/{name}/{user_id}', [UserController::class, 'search'])->name('user');
 Route::middleware('cors', 'json.response', 'auth:api')->get('/user/{id}', [UserController:: class, 'show'])->name('user');
 Route::middleware('cors', 'json.response', 'auth:api')->put('/user', [UserController:: class, 'update'])->name('user');
 
