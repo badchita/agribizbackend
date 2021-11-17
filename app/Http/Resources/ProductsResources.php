@@ -29,6 +29,7 @@ class ProductsResources extends JsonResource
             'product_location' => $this->product_location,
             'product_location_id' => $this->product_location_id,
             'thumbnail_name' => $this->thumbnail_name,
+            'user_id' => $this->user_id,
             'seller' => User::findOrFail($this->user_id),
             'addresses_detail' => Addresses::findOrFail($this->product_location_id),
             'addresses' => AddressesResources::collection($this->whenLoaded('addresses')),

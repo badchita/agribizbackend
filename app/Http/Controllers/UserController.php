@@ -24,9 +24,9 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::find($id);
 
-        return new UserResources($user);
+        return new UserResources($user->loadMissing(['products']));
     }
 
     public function update(Request $request)

@@ -14,4 +14,9 @@ class Products extends Model
     {
         return $this->hasMany(Addresses::class, 'id');
     }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'id');
+    }
 }

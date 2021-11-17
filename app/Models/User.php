@@ -31,6 +31,11 @@ class User extends Authenticatable
         return $this->hasMany(Addresses::class, 'id');
     }
 
+    public function products()
+    {
+        return $this->hasMany(Products::class, 'user_id');
+    }
+
     protected $hidden = [
         'password',
         'remember_token',
