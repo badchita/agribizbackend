@@ -71,6 +71,8 @@ Route::put('/address', [AddressesController::class, 'update'])->name('address');
 Route::patch('/address', [AddressesController::class, 'archive'])->name('address');
 Route::delete('/address/{id}', [AddressesController::class, 'destroy'])->name('address');
 Route::get('/address/search/{name}', [AddressesController::class, 'search'])->name('address');
+//admin
+Route::get('/admin/addresses/{user_id}/{status?}', [AddressesController::class, 'indexAdmin'])->name('addresses');
 
 Route::get('/orders/{user_id}/{status?}', [OrdersController::class, 'index'])->name('orders');
 Route::get('/customer/orders/{user_id}', [OrdersController::class, 'indexCustomer'])->name('orders');

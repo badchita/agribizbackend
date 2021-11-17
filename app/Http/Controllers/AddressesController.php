@@ -22,6 +22,17 @@ class AddressesController extends Controller
         // return AddressesResource::collection($addresses);
     }
 
+    public function indexAdmin($user_id=null, $status=null)
+    {
+        if ($status == 'O') {
+            return Addresses::select('*')->where('status', 'O')->where('id', '!=', $user_id)->get();
+        } else if ($status == 'V') {
+            return Addresses::select('*')->where('status', 'V')->where('id', '!=', $user_id)->get();
+        } else {
+            return Addresses::select('*')->where('id', '!=', $user_id)->get();
+        }
+    }
+
     public function store(Request $request)
     {
         $addresses = new Addresses;
