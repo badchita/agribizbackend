@@ -59,6 +59,8 @@ Route::patch('/product', [ProductsController::class, 'archive'])->name('product'
 Route::delete('/product/{id}', [ProductsController::class, 'destroy'])->name('product');
 Route::get('/product/search/{name}', [ProductsController::class, 'search'])->name('product');
 Route::get('/products', [ProductsController::class, 'all'])->name('products');
+//admin
+Route::get('/admin/products/{user_id}/{status?}', [ProductsController::class, 'indexAdmin'])->name('products');
 
 Route::post('/upload', [ProductsController::class, 'upload'])->name('upload');
 
@@ -71,6 +73,7 @@ Route::delete('/address/{id}', [AddressesController::class, 'destroy'])->name('a
 Route::get('/address/search/{name}', [AddressesController::class, 'search'])->name('address');
 
 Route::get('/orders/{user_id}/{status?}', [OrdersController::class, 'index'])->name('orders');
+Route::get('/customer/orders/{user_id}', [OrdersController::class, 'indexCustomer'])->name('orders');
 Route::get('/order/{id}', [OrdersController::class, 'show'])->name('order');
 Route::post('/order', [OrdersController::class, 'store'])->name('order');
 Route::put('/order', [OrdersController::class, 'store'])->name('order');

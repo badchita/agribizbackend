@@ -22,6 +22,17 @@ class ProductsController extends Controller
         // return ProductsResource::collection($products);
     }
 
+    public function indexAdmin($user_id=null, $status=null)
+    {
+        if ($status == 'O') {
+            return Products::select('*')->where('status', 'O')->where('id', '!=', $user_id)->where('product_status', 'Available')->get();
+        } else if ($status == 'V') {
+            return Products::select('*')->where('status', 'V')->where('id', '!=', $user_id)->where('product_status', 'Archive')->orwhere('product_status', 'Out Of Stocks')->get();
+        } else {
+            return Products::select('*')->where('id', '!=', $user_id)->get();
+        }
+    }
+
     public function all()
     {
         return Products::select('*')->where('status', 'O')->where('product_status', 'Available')->orwhere('product_status', 'Out Of Stocks')->get();

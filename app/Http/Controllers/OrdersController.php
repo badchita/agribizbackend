@@ -24,6 +24,12 @@ class OrdersController extends Controller
         }
     }
 
+    public function indexCustomer($user_id)
+    {
+        $orders = Orders::select('*')->where('user_id', $user_id)->get();
+        return OrdersResources::collection($orders);
+    }
+
     public function store(Request $request)
     {
         $orders = new Orders;
