@@ -28,7 +28,7 @@ class User extends Authenticatable
 
     public function addresses()
     {
-        return $this->hasMany(Addresses::class, 'id');
+        return $this->hasMany(Addresses::class, 'user_id');
     }
 
     public function products()
