@@ -51,6 +51,8 @@ class ProductsController extends Controller
         $products->product_location_id = $request->input('product_location_id');
         $products->status = $request->input('status');
         $products->user_id = $request->input('user_id');
+        $products->thumbnail_name = $request->input('thumbnail_name');
+
         $products->save();
 
         return null;
@@ -67,6 +69,7 @@ class ProductsController extends Controller
             'product_status' => $request->product_status,
             'product_location' => $request->product_location,
             'product_location_id' => $request->product_location_id,
+            'thumbnail_name' => $request->thumbnail_name,
             'status' => $request->status,
             'user_id' => $request->user_id,
         ]);
@@ -82,10 +85,11 @@ class ProductsController extends Controller
 
     public function upload(Request $request)
     {
-        $imageFullName = $request->file('thumbnail_name')->getClientOriginalName();
-        $request->file('thumbnail_name')->storeAs('products', $imageFullName);
+        $file_name = time().'_'.$request->file->getClientOriginalName();
+        $request->file('file')->storeAs('uploads', $file_name, 'public');
 
-        return null;
+        $response = ["message" => $file_name];
+        return response($response, 200);
     }
 
     public function show($id)
