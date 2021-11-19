@@ -28,6 +28,7 @@ class OrdersResources extends JsonResource
             'order_total_price' => $this->order_total_price,
             'status' => $this->status,
             'order_status' => $this->order_status,
+            'seller_id' => $this->seller_id,
             'product_details' => Products::find($this->product_id),
             'ship_from_address_details' => Addresses::find($this->ship_from_address_id),
             'ship_to_address_details' => Addresses::find($this->ship_to_address_id),

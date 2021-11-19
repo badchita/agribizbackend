@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Orders;
 use App\Http\Resources\OrdersResources;
-
-use Illuminate\Support\Facades\DB;
+use App\Models\Dashboard;
+use App\Models\Products;
 
 class OrdersController extends Controller
 {
@@ -111,6 +111,18 @@ class OrdersController extends Controller
 
     public function updateStatus(Request $request)
     {
+        if ($request->order_status == '4') {
+            $dashboard = Dashboard::find($request->seller_id)->value('week_income');
+            $product = Products::find($request->product_id)->value('quantity');
+            $week_income = $dashboard + $request->product_total_price;
+            $quantity = $product - $request->quantity;
+            Dashboard::where(['user_id' => $request->seller_id])->update([
+                'week_income' => $week_income,
+            ]);
+            Products::where(['id' => $request->product_id])->update([
+                'quantity' => $quantity,
+            ]);
+        }
         Orders::where(['id' => $request->id])->update([
             'order_status' => $request->order_status,
         ]);
