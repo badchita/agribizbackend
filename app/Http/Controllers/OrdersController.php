@@ -112,16 +112,25 @@ class OrdersController extends Controller
     public function updateStatus(Request $request)
     {
         if ($request->order_status == '4') {
-            $dashboard = Dashboard::find($request->seller_id)->value('week_income');
-            $product = Products::find($request->product_id)->value('quantity');
+            $dashboard = Dashboard::where('id', $request->seller_id)->value('week_income');
+            $product = Products::where('id', $request->product_id)->value('quantity');
             $week_income = $dashboard + $request->product_total_price;
             $quantity = $product - $request->quantity;
             Dashboard::where(['user_id' => $request->seller_id])->update([
                 'week_income' => $week_income,
             ]);
-            Products::where(['id' => $request->product_id])->update([
-                'quantity' => $quantity,
-            ]);
+
+            if ($quantity == 0) {
+                Products::where(['id' => $request->product_id])->update([
+                    'quantity' => $quantity,
+                    'product_status' => 'Out Of Stocks',
+                    'status' => 'V',
+                ]);
+            } else {
+                Products::where(['id' => $request->product_id])->update([
+                    'quantity' => $quantity,
+                ]);
+            }
         }
         Orders::where(['id' => $request->id])->update([
             'order_status' => $request->order_status,
