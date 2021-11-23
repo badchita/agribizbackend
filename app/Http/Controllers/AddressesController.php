@@ -8,28 +8,36 @@ use App\Http\Resources\AddressesResources;
 
 class AddressesController extends Controller
 {
-    public function index($user_id=null, $status=null)
+    public function index(Request $request)
     {
+        $offset = $request->offset;
+        $limit = $request->limit;
+        $user_id = $request->user_id;
+        $status = $request->status;
         if ($status == 'O') {
-            return Addresses::select('*')->where('status', 'O')->where('user_id', $user_id)->get();
+            return Addresses::select('*')->where('status', 'O')->where('user_id', $user_id)->offset($offset)->limit($limit)->get();
         } else if ($status == 'V') {
-            return Addresses::select('*')->where('status', 'V')->where('user_id', $user_id)->get();
+            return Addresses::select('*')->where('status', 'V')->where('user_id', $user_id)->offset($offset)->limit($limit)->get();
         } else {
-            return Addresses::select('*')->where('user_id', $user_id)->get();
+            return Addresses::select('*')->where('user_id', $user_id)->offset($offset)->limit($limit)->get();
         }
         // $addresses = Addresses::paginate(15);
 
         // return AddressesResource::collection($addresses);
     }
 
-    public function indexAdmin($user_id=null, $status=null)
+    public function indexAdmin(Request $request)
     {
+        $offset = $request->offset;
+        $limit = $request->limit;
+        $user_id = $request->user_id;
+        $status = $request->status;
         if ($status == 'O') {
-            return Addresses::select('*')->where('status', 'O')->where('id', '!=', $user_id)->get();
+            return Addresses::select('*')->where('status', 'O')->where('id', '!=', $user_id)->offset($offset)->limit($limit)->get();
         } else if ($status == 'V') {
-            return Addresses::select('*')->where('status', 'V')->where('id', '!=', $user_id)->get();
+            return Addresses::select('*')->where('status', 'V')->where('id', '!=', $user_id)->offset($offset)->limit($limit)->get();
         } else {
-            return Addresses::select('*')->where('id', '!=', $user_id)->get();
+            return Addresses::select('*')->where('id', '!=', $user_id)->offset($offset)->limit($limit)->get();
         }
     }
 

@@ -8,28 +8,36 @@ use App\Http\Resources\ProductsResources;
 
 class ProductsController extends Controller
 {
-    public function index($user_id=null, $status=null)
+    public function index(Request $request)
     {
+        $offset = $request->offset;
+        $limit = $request->limit;
+        $user_id = $request->user_id;
+        $status = $request->status;
         if ($status == 'O') {
-            return Products::select('*')->where('status', 'O')->where('user_id', $user_id)->where('product_status', 'Available')->get();
+            return Products::select('*')->where('status', 'O')->where('user_id', $user_id)->where('product_status', 'Available')->offset($offset)->limit($limit)->get();
         } else if ($status == 'V') {
-            return Products::select('*')->where('status', 'V')->where('user_id', $user_id)->where('product_status', 'Archive')->orwhere('product_status', 'Out Of Stocks')->get();
+            return Products::select('*')->where('status', 'V')->where('user_id', $user_id)->where('product_status', 'Archive')->orwhere('product_status', 'Out Of Stocks')->offset($offset)->limit($limit)->get();
         } else {
-            return Products::select('*')->where('user_id', $user_id)->get();
+            return Products::select('*')->where('user_id', $user_id)->offset($offset)->limit($limit)->get();
         }
         // return Products::select('*')->where('status', 'V')->get();
 
         // return ProductsResource::collection($products);
     }
 
-    public function indexAdmin($user_id=null, $status=null)
+    public function indexAdmin(Request $request)
     {
+        $offset = $request->offset;
+        $limit = $request->limit;
+        $user_id = $request->user_id;
+        $status = $request->status;
         if ($status == 'O') {
-            return Products::select('*')->where('status', 'O')->where('id', '!=', $user_id)->where('product_status', 'Available')->get();
+            return Products::select('*')->where('status', 'O')->where('id', '!=', $user_id)->where('product_status', 'Available')->offset($offset)->limit($limit)->get();
         } else if ($status == 'V') {
-            return Products::select('*')->where('status', 'V')->where('id', '!=', $user_id)->where('product_status', 'Archive')->orwhere('product_status', 'Out Of Stocks')->get();
+            return Products::select('*')->where('status', 'V')->where('id', '!=', $user_id)->where('product_status', 'Archive')->orwhere('product_status', 'Out Of Stocks')->offset($offset)->limit($limit)->get();
         } else {
-            return Products::select('*')->where('id', '!=', $user_id)->get();
+            return Products::select('*')->where('id', '!=', $user_id)->offset($offset)->limit($limit)->get();
         }
     }
 

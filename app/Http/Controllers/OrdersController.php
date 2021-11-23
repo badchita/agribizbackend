@@ -24,10 +24,16 @@ class OrdersController extends Controller
         }
     }
 
-    public function indexCustomer($user_id)
+    public function indexCustomer(Request $request, $user_id)
     {
-        $orders = Orders::select('*')->where('user_id', $user_id)->get();
+        $offset = $request->offset;
+        $limit = $request->limit;
+        $orders = Orders::select('*')->where('user_id', $user_id)->offset($offset)->limit($limit)->get();
         return OrdersResources::collection($orders);
+
+        // $response = ["offset" => $offset,
+        //             "limit" => $request];
+        // return response($response, 200);
     }
 
     public function store(Request $request)

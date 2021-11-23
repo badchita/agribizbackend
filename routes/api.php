@@ -51,20 +51,20 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/articles', [ArticleController::class, 'index'])->middleware('api.admin')->name('articles');
 });
 
-Route::get('/products/{user_id}/{status?}', [ProductsController::class, 'index'])->name('products');
+Route::get('/products', [ProductsController::class, 'index'])->name('products');
 Route::get('/product/{id}', [ProductsController::class, 'show'])->name('product');
 Route::post('/product', [ProductsController::class, 'store'])->name('product');
 Route::put('/product', [ProductsController::class, 'update'])->name('product');
 Route::patch('/product', [ProductsController::class, 'archive'])->name('product');
 Route::delete('/product/{id}', [ProductsController::class, 'destroy'])->name('product');
 Route::get('/product/search/{name}', [ProductsController::class, 'search'])->name('product');
-Route::get('/products', [ProductsController::class, 'all'])->name('products');
+Route::get('/customer/products', [ProductsController::class, 'all'])->name('products');
 //admin
-Route::get('/admin/products/{user_id}/{status?}', [ProductsController::class, 'indexAdmin'])->name('products');
+Route::get('/admin/products', [ProductsController::class, 'indexAdmin'])->name('products');
 
 Route::post('/upload', [ProductsController::class, 'upload'])->name('upload');
 
-Route::get('/addresses/{user_id}/{status?}', [AddressesController::class, 'index'])->name('addresses');
+Route::get('/addresses', [AddressesController::class, 'index'])->name('addresses');
 Route::get('/address/{id}', [AddressesController::class, 'show'])->name('address');
 Route::post('/address', [AddressesController::class, 'store'])->name('address');
 Route::put('/address', [AddressesController::class, 'update'])->name('address');
@@ -72,7 +72,7 @@ Route::patch('/address', [AddressesController::class, 'archive'])->name('address
 Route::delete('/address/{id}', [AddressesController::class, 'destroy'])->name('address');
 Route::get('/address/search/{name}', [AddressesController::class, 'search'])->name('address');
 //admin
-Route::get('/admin/addresses/{user_id}/{status?}', [AddressesController::class, 'indexAdmin'])->name('addresses');
+Route::get('/admin/addresses', [AddressesController::class, 'indexAdmin'])->name('addresses');
 
 Route::get('/orders/{user_id}/{status?}', [OrdersController::class, 'index'])->name('orders');
 Route::get('/customer/orders/{user_id}', [OrdersController::class, 'indexCustomer'])->name('orders');

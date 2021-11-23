@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\Models\Addresses;
 use App\Models\Products;
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrdersResources extends JsonResource
@@ -30,6 +31,7 @@ class OrdersResources extends JsonResource
             'order_status' => $this->order_status,
             'seller_id' => $this->seller_id,
             'product_details' => Products::find($this->product_id),
+            'seller_details' => User::find($this->seller_id),
             'ship_from_address_details' => Addresses::find($this->ship_from_address_id),
             'ship_to_address_details' => Addresses::find($this->ship_to_address_id),
         ];
