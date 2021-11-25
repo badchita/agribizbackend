@@ -41,9 +41,11 @@ class ProductsController extends Controller
         }
     }
 
-    public function all()
+    public function all(Request $request)
     {
-        return Products::select('*')->where('status', 'O')->where('product_status', 'Available')->orwhere('product_status', 'Out Of Stocks')->get();
+        $offset = $request->offset;
+        $limit = $request->limit;
+        return Products::select('*')->where('status', 'O')->where('product_status', 'Available')->orwhere('product_status', 'Out Of Stocks')->offset($offset)->limit($limit)->get();
     }
 
     public function store(Request $request)

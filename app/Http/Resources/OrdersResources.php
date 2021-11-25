@@ -30,6 +30,7 @@ class OrdersResources extends JsonResource
             'status' => $this->status,
             'order_status' => $this->order_status,
             'seller_id' => $this->seller_id,
+            'rated' => $this->rated,
             'product_details' => Products::find($this->product_id),
             'seller_details' => User::find($this->seller_id),
             'ship_from_address_details' => Addresses::find($this->ship_from_address_id),

@@ -10,24 +10,46 @@ use App\Models\Products;
 
 class OrdersController extends Controller
 {
-    public function index($seller_id=null, $status=null)
+    public function index(Request $request)
     {
+        $offset = $request->offset;
+        $limit = $request->limit;
+        $seller_id = $request->seller_id;
+        $status = $request->status;
         if ($status == 'O') {
-            $orders = Orders::select('*')->where('status', $status)->where('seller_id', $seller_id)->get();
+            $orders = Orders::select('*')->where('status', $status)->where('seller_id', $seller_id)->offset($offset)->limit($limit)->get();
             return OrdersResources::collection($orders);
         } else if ($status == 'V') {
-            $orders = Orders::select('*')->where('status', $status)->where('seller_id', $seller_id)->get();
+            $orders = Orders::select('*')->where('status', $status)->where('seller_id', $seller_id)->offset($offset)->limit($limit)->get();
             return OrdersResources::collection($orders);
         } else {
-            $orders = Orders::select('*')->where('seller_id', $seller_id)->get();
+            $orders = Orders::select('*')->where('seller_id', $seller_id)->offset($offset)->limit($limit)->get();
+            return OrdersResources::collection($orders);
+        }
+    }
+    public function indexAdmin(Request $request)
+    {
+        $offset = $request->offset;
+        $limit = $request->limit;
+        $user_id = $request->user_id;
+        $status = $request->status;
+        if ($status == 'O') {
+            $orders = Orders::select('*')->where('status', 'O')->where('id', '!=', $user_id)->offset($offset)->limit($limit)->get();
+            return OrdersResources::collection($orders);
+        } else if ($status == 'V') {
+            $orders = Orders::select('*')->where('status', 'V')->where('id', '!=', $user_id)->offset($offset)->limit($limit)->get();
+            return OrdersResources::collection($orders);
+        } else {
+            $orders = Orders::select('*')->where('id', '!=', $user_id)->offset($offset)->limit($limit)->get();
             return OrdersResources::collection($orders);
         }
     }
 
-    public function indexCustomer(Request $request, $user_id)
+    public function indexCustomer(Request $request)
     {
         $offset = $request->offset;
         $limit = $request->limit;
+        $user_id = $request->user_id;
         $orders = Orders::select('*')->where('user_id', $user_id)->offset($offset)->limit($limit)->get();
         return OrdersResources::collection($orders);
 

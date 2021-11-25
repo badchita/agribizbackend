@@ -74,8 +74,8 @@ Route::get('/address/search/{name}', [AddressesController::class, 'search'])->na
 //admin
 Route::get('/admin/addresses', [AddressesController::class, 'indexAdmin'])->name('addresses');
 
-Route::get('/orders/{user_id}/{status?}', [OrdersController::class, 'index'])->name('orders');
-Route::get('/customer/orders/{user_id}', [OrdersController::class, 'indexCustomer'])->name('orders');
+Route::get('/orders', [OrdersController::class, 'index'])->name('orders');
+Route::get('/customer/orders', [OrdersController::class, 'indexCustomer'])->name('orders');
 Route::get('/order/{id}', [OrdersController::class, 'show'])->name('order');
 Route::post('/order', [OrdersController::class, 'store'])->name('order');
 Route::put('/order', [OrdersController::class, 'store'])->name('order');
@@ -83,6 +83,8 @@ Route::patch('/order', [OrdersController::class, 'archive'])->name('order');
 Route::delete('/order/{id}', [OrdersController::class, 'destroy'])->name('order');
 Route::get('/order/search/{order_number}/{seller_id}', [OrdersController::class, 'search'])->name('order');
 Route::patch('/order/update_status', [OrdersController::class, 'updateStatus'])->name('order');
+//admin
+Route::get('/admin/orders', [OrdersController::class, 'indexAdmin'])->name('order');
 
 Route::get('/notifications_user/{status?}', [NotificationsUserController::class, 'index'])->name('notifications_user');
 Route::get('/notification_user/{id}', [NotificationsUserController::class, 'show'])->name('notification_user');
