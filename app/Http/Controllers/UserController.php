@@ -41,6 +41,10 @@ class UserController extends Controller
             'username' => $request->username,
             'address_id' => $request->address_id,
         ]);
+
+        $user = User::find($request->id);
+
+        return new UserResources($user->loadMissing(['products'])->loadMissing(['addresses']));
     }
 
     public function archive(Request $request)
