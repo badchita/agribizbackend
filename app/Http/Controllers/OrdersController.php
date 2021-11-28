@@ -17,13 +17,13 @@ class OrdersController extends Controller
         $seller_id = $request->user_id;
         $status = $request->status;
         if ($status == 'O') {
-            $orders = Orders::select('*')->where('status', $status)->where('seller_id', $seller_id)->offset($offset)->limit($limit)->get();
+            $orders = Orders::select('*')->where('status', $status)->where('seller_id', $seller_id)->offset($offset)->limit($limit)->orderBy("created_at", "DESC")->get();
             return OrdersResources::collection($orders);
         } else if ($status == 'V') {
-            $orders = Orders::select('*')->where('status', $status)->where('seller_id', $seller_id)->offset($offset)->limit($limit)->get();
+            $orders = Orders::select('*')->where('status', $status)->where('seller_id', $seller_id)->offset($offset)->limit($limit)->orderBy("created_at", "DESC")->get();
             return OrdersResources::collection($orders);
         } else {
-            $orders = Orders::select('*')->where('seller_id', $seller_id)->offset($offset)->limit($limit)->get();
+            $orders = Orders::select('*')->where('seller_id', $seller_id)->offset($offset)->limit($limit)->orderBy("created_at", "DESC")->get();
             return OrdersResources::collection($orders);
         }
     }
@@ -34,22 +34,29 @@ class OrdersController extends Controller
         $user_id = $request->user_id;
         $status = $request->status;
         if ($status == 'O') {
-            $orders = Orders::select('*')->where('status', 'O')->where('seller_id', '!=', $user_id)->offset($offset)->limit($limit)->get();
+            $orders = Orders::select('*')->where('status', 'O')->where('seller_id', '!=', $user_id)->offset($offset)->limit($limit)->orderBy("created_at", "DESC")->get();
             return OrdersResources::collection($orders);
         } else if ($status == 'V') {
-            $orders = Orders::select('*')->where('status', 'V')->where('seller_id', '!=', $user_id)->offset($offset)->limit($limit)->get();
+            $orders = Orders::select('*')->where('status', 'V')->where('seller_id', '!=', $user_id)->offset($offset)->limit($limit)->orderBy("created_at", "DESC")->get();
             return OrdersResources::collection($orders);
         } else {
-            $orders = Orders::select('*')->where('seller_id', '!=', $user_id)->offset($offset)->limit($limit)->get();
+            $orders = Orders::select('*')->where('seller_id', '!=', $user_id)->offset($offset)->limit($limit)->orderBy("created_at", "DESC")->get();
             return OrdersResources::collection($orders);
         }
     }
 
     public function indexCustomer(Request $request)
     {
+        $offset = $request->offset;
+        $limit = $request->limit;
         $user_id = $request->user_id;
-        $orders = Orders::select('*')->where('user_id', $user_id)->get();
+        if ($limit) {
+            $orders = Orders::select('*')->where('user_id', $user_id)->offset($offset)->limit($limit)->orderBy("created_at", "DESC")->get();
         return OrdersResources::collection($orders);
+        } else {
+            $orders = Orders::select('*')->where('user_id', $user_id)->orderBy("created_at", "DESC")->get();
+        return OrdersResources::collection($orders);
+        }
 
         // $response = ["offset" => $offset,
         //             "limit" => $request];
