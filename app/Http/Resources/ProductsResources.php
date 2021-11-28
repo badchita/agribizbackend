@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Addresses;
+use App\Models\ProductRatings;
 use App\Models\User;
 
 class ProductsResources extends JsonResource
@@ -33,6 +34,7 @@ class ProductsResources extends JsonResource
             'seller' => User::findOrFail($this->user_id),
             'addresses_detail' => Addresses::findOrFail($this->product_location_id),
             'addresses' => AddressesResources::collection($this->whenLoaded('addresses')),
+            'product_ratings' => ProductRatingResources::collection($this->whenLoaded('product_ratings')),
         ];
     }
 }

@@ -13,6 +13,7 @@ use App\Http\Controllers\LikeProductsController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductRatingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,3 +101,6 @@ Route::patch('/like_products', [LikeProductsController::class, 'archive'])->name
 Route::get('/dashboards/{user_id}', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/dashboard/{id}', [DashboardController::class, 'show'])->name('dashboard');
 Route::post('/dashboard', [DashboardController::class, 'store'])->name('dashboard');
+
+Route::get('/product_ratings', [ProductRatingsController::class, 'index'])->name('product_ratings');
+Route::post('/product_rating', [ProductRatingsController::class, 'store'])->name('product_ratings');

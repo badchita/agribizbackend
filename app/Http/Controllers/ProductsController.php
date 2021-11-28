@@ -106,7 +106,7 @@ class ProductsController extends Controller
     {
         $products = Products::find($id);
 
-        return new ProductsResources($products->loadMissing(['addresses']));
+        return new ProductsResources($products->loadMissing(['addresses'])->loadMissing(['product_ratings']));
     }
 
     public function destroy($id)
