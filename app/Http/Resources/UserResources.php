@@ -30,6 +30,7 @@ class UserResources extends JsonResource
             'isOnline' => $this->isOnline,
             'status' => $this->status,
             'status_verification' => $this->status_verification,
+            'created_at' => $this->created_at,
             'orders' => Orders::select('*')->where('user_id', $this->id)->get(),
             'selected_address' => Addresses::find($this->address_id),
             'addresses' => AddressesResources::collection($this->whenLoaded('addresses')),

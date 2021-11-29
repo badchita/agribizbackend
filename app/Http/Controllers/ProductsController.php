@@ -45,7 +45,7 @@ class ProductsController extends Controller
     {
         $offset = $request->offset;
         $limit = $request->limit;
-        return Products::select('*')->where('status', 'O')->where('product_status', 'Available')->orwhere('product_status', 'Out Of Stocks')->offset($offset)->limit($limit)->get();
+        return Products::select('*')->where('status', 'O')->where('product_status', 'Available')->orwhere('product_status', 'Out Of Stocks')->inRandomOrder()->offset($offset)->limit($limit)->get();
     }
 
     public function store(Request $request)

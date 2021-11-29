@@ -13,13 +13,13 @@ class UserController extends Controller
         $status = $request->status;
         $user_id = $request->user_id;
         if ($status == 'O') {
-            $users = User::select('*')->where('status', $status)->where('id', '!=', $user_id)->get();
+            $users = User::select('*')->where('status', $status)->where('id', '!=', $user_id)->orderBy("created_at", "DESC")->get();
             return UserResources::collection($users);
         } else if ($status == 'V') {
-            $orders = User::select('*')->where('status', $status)->where('id', '!=', $user_id)->get();
+            $orders = User::select('*')->where('status', $status)->where('id', '!=', $user_id)->orderBy("created_at", "DESC")->get();
             return UserResources::collection($orders);
         } else {
-            $orders = User::select('*')->where('id', '!=', $user_id)->get();
+            $orders = User::select('*')->where('id', '!=', $user_id)->orderBy("created_at", "DESC")->get();
             return UserResources::collection($orders);
         }
     }

@@ -17,7 +17,7 @@ class ApiAuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'mobile' => 'integer|max:16|unique:users',
+            'mobile' => 'integer|unique:users',
             'user_type' => 'string|max:255',
             'joined_date' => 'string|max:255',
             'username' => 'string|max:255',
@@ -47,7 +47,7 @@ class ApiAuthController extends Controller
         }
         $status_verification = User::where('email', $request->email)->where('status_verification', 0)->first();
         if ($status_verification) {
-            $response = ["message" =>'User No Yet Approved By Admin. Please Wait For Approval'];
+            $response = ["message" =>'User Not Yet Approved By Admin. Please Wait For Approval'];
             return response($response, 405);
         }
         $status = User::where('email', $request->email)->where('status', 'V')->first();
