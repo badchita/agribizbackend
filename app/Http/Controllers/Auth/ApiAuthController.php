@@ -45,6 +45,11 @@ class ApiAuthController extends Controller
         {
             return response(['errors'=>$validator->errors()->all()], 401);
         }
+        $status_verification = User::where('email', $request->email)->where('status_verification', 0)->first();
+        if ($status_verification) {
+            $response = ["message" =>'User No Yet Approved By Admin. Please Wait For Approval'];
+            return response($response, 405);
+        }
         $status = User::where('email', $request->email)->where('status', 'V')->first();
         if ($status) {
             $response = ["message" =>'User Disabled'];

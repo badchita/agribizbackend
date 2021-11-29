@@ -26,8 +26,9 @@ use App\Http\Controllers\ProductRatingsController;
 |
 */
 
-Route::get('/users/{user_id}/{status?}', [UserController::class, 'index'])->name('user');
+Route::get('/users', [UserController::class, 'index'])->name('user');
 Route::patch('/user', [UserController::class, 'archive'])->name('user');
+Route::patch('/user/update_status_verification', [UserController::class, 'updateStatusVerification'])->name('user');
 Route::get('/user/search/{name}/{user_id}', [UserController::class, 'search'])->name('user');
 Route::middleware('cors', 'json.response', 'auth:api')->get('/user/{id}', [UserController:: class, 'show'])->name('user');
 Route::middleware('cors', 'json.response', 'auth:api')->put('/user', [UserController:: class, 'update'])->name('user');

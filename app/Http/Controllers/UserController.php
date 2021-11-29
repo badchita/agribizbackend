@@ -9,7 +9,9 @@ use App\Http\Resources\UserResources;
 
 class UserController extends Controller
 {
-    public function index ($user_id, $status=null) {
+    public function index (Request $request) {
+        $status = $request->status;
+        $user_id = $request->user_id;
         if ($status == 'O') {
             $users = User::select('*')->where('status', $status)->where('id', '!=', $user_id)->get();
             return UserResources::collection($users);
@@ -58,5 +60,16 @@ class UserController extends Controller
     {
         $users = User::select('*')->where('name', 'LIKE', $name . '%')->where('id', '!=', $user_id)->get();
         return UserResources::collection($users);
+    }
+
+    public function updateStatusVerification(Request $request)
+    {
+        User::where(['id' => $request->id])->update([
+            'status_verification' => $request->status_verification,
+        ]);
+
+        $user = User::find($request->id);
+
+        return new UserResources($user->loadMissing(['products'])->loadMissing(['addresses']));
     }
 }
