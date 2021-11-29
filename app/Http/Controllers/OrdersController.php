@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Orders;
 use App\Http\Resources\OrdersResources;
 use App\Models\Dashboard;
+use App\Models\NotificationsVendor;
 use App\Models\Products;
+use App\Models\User;
 
 class OrdersController extends Controller
 {
@@ -87,6 +89,18 @@ class OrdersController extends Controller
         $orders->status = 'O';
         $orders->order_status = '0';
         $orders->save();
+
+        $notifications_vendor = new NotificationsVendor;
+        $username = User::where('id', $request->user_id)->value('username');
+        $notifications_vendor->user_id = $request->input('user_id');
+        $notifications_vendor->order_id = $unique_no;
+        $notifications_vendor->title = 'New Pending Order ORD'.$unique_no;
+        $notifications_vendor->subject = 'Pending Order';
+        $notifications_vendor->description = 'From: '.$username;
+        $notifications_vendor->to_id = $request->input('seller_id');
+        $notifications_vendor->from_id = $request->input('user_id');
+        $notifications_vendor->status = 'O';
+        $notifications_vendor->save();
 
         return null;
     }

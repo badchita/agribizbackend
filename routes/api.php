@@ -13,6 +13,7 @@ use App\Http\Controllers\LikeProductsController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NotificationsVendorController;
 use App\Http\Controllers\ProductRatingsController;
 
 /*
@@ -105,3 +106,8 @@ Route::post('/dashboard', [DashboardController::class, 'store'])->name('dashboar
 
 Route::get('/product_ratings', [ProductRatingsController::class, 'index'])->name('product_ratings');
 Route::post('/product_rating', [ProductRatingsController::class, 'store'])->name('product_ratings');
+
+Route::get('/notifications_vendor', [NotificationsVendorController::class, 'index'])->name('notifications_vendor');
+Route::post('/notification_vendor', [NotificationsVendorController::class, 'store'])->name('notifications_vendor');
+Route::put('/notification_vendor', [NotificationsVendorController::class, 'update'])->name('notifications_vendor');
+Route::get('/notification_vendor/{id}', [NotificationsVendorController::class, 'show'])->name('notifications_vendor');
