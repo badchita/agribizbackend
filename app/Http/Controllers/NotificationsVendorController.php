@@ -64,6 +64,16 @@ class NotificationsVendorController extends Controller
         ]);
     }
 
+    public function markAsRead(Request $request)
+    {
+        NotificationsVendor::where(['id' => $request->id])->update([
+            'markRead' => $request->markRead,
+        ]);
+
+        $response = ["message" =>'1'];
+        return response($response, 200);
+    }
+
     public function show($id)
     {
         $notifications_vendor = NotificationsVendor::find($id);

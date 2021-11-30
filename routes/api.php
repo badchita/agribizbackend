@@ -111,3 +111,4 @@ Route::get('/notifications_vendor', [NotificationsVendorController::class, 'inde
 Route::post('/notification_vendor', [NotificationsVendorController::class, 'store'])->name('notifications_vendor');
 Route::put('/notification_vendor', [NotificationsVendorController::class, 'update'])->name('notifications_vendor');
 Route::get('/notification_vendor/{id}', [NotificationsVendorController::class, 'show'])->name('notifications_vendor');
+Route::patch('/notification_vendor/markRead', [NotificationsVendorController::class, 'markAsRead'])->name('notifications_vendor');
