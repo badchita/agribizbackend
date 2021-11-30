@@ -28,7 +28,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        return new UserResources($user->loadMissing(['products'])->loadMissing(['addresses']));
+        return new UserResources($user->loadMissing(['products'])->loadMissing(['addresses'])->loadMissing(['notifications_vendor']));
     }
 
     public function update(Request $request)

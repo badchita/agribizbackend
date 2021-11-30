@@ -36,6 +36,11 @@ class User extends Authenticatable
         return $this->hasMany(Products::class, 'user_id');
     }
 
+    public function notifications_vendor()
+    {
+        return $this->hasMany(NotificationsVendor::class, 'to_id')->orderBy("created_at", "DESC");
+    }
+
     protected $hidden = [
         'password',
         'remember_token',

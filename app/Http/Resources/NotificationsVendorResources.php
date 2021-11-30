@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Orders;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class NotificationsVendorResources extends JsonResource
@@ -29,6 +30,7 @@ class NotificationsVendorResources extends JsonResource
             'markRead' => $this->markRead,
             'created_at' => $this->created_at,
             'new' => $this->new,
+            'orders' => Orders::findOrFail($this->order_id),
         ];
     }
 }

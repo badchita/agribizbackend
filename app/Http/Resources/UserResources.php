@@ -35,6 +35,7 @@ class UserResources extends JsonResource
             'selected_address' => Addresses::find($this->address_id),
             'addresses' => AddressesResources::collection($this->whenLoaded('addresses')),
             'products' => ProductsResources::collection($this->whenLoaded('products')),
+            'notifications' => NotificationsVendorResources::collection($this->whenLoaded('notifications_vendor')),
         ];
     }
 }

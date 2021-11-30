@@ -179,6 +179,23 @@ class OrdersController extends Controller
                 ]);
             }
         }
+
+        $username = User::where('id', $request->seller_id)->value('username');
+        if ($request->order_status == '1') {
+            $title = 'Order Has Been Accepted';
+            $subject = 'Order '.$request->order_number.' Has Been Accpeted By The Seller';
+            $description = 'From: '.$username;
+        }
+        $notifications_vendor = new NotificationsVendor;
+        $notifications_vendor->user_id = $request->input('user_id');
+        $notifications_vendor->order_id = $request->order_id;
+        $notifications_vendor->title = $title;
+        $notifications_vendor->subject = $subject;
+        $notifications_vendor->description = $description;
+        $notifications_vendor->to_id = $request->input('user_id');
+        $notifications_vendor->from_id = $request->input('seller_id');
+        $notifications_vendor->status = 'O';
+        $notifications_vendor->save();
         Orders::where(['id' => $request->id])->update([
             'order_status' => $request->order_status,
         ]);
