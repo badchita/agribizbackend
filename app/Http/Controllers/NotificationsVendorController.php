@@ -74,6 +74,16 @@ class NotificationsVendorController extends Controller
         return response($response, 200);
     }
 
+    public function updateNew(Request $request)
+    {
+        NotificationsVendor::where(['to_id' => $request->to_id])->update([
+            'new' => 0,
+        ]);
+
+        $response = ["message" =>'1'];
+        return response($response, 200);
+    }
+
     public function show($id)
     {
         $notifications_vendor = NotificationsVendor::find($id);

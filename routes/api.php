@@ -112,3 +112,4 @@ Route::post('/notification_vendor', [NotificationsVendorController::class, 'stor
 Route::put('/notification_vendor', [NotificationsVendorController::class, 'update'])->name('notifications_vendor');
 Route::get('/notification_vendor/{id}', [NotificationsVendorController::class, 'show'])->name('notifications_vendor');
 Route::patch('/notification_vendor/markRead', [NotificationsVendorController::class, 'markAsRead'])->name('notifications_vendor');
+Route::patch('/notification_vendor/updateNew', [NotificationsVendorController::class, 'updateNew'])->name('notifications_vendor');

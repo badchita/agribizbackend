@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ProductRatings;
 use App\Http\Resources\ProductRatingResources;
+use App\Models\NotificationsVendor;
 use App\Models\Orders;
+use App\Models\Products;
+use App\Models\User;
 
 class ProductRatingsController extends Controller
 {
@@ -34,6 +37,19 @@ class ProductRatingsController extends Controller
         Orders::where(['id' => $order_id])->update([
             'rated' => 1,
         ]);
+
+        $notifications_vendor = new NotificationsVendor;
+        $seller_id = Products::where('id', $request->product_id)->value('user_id');
+        $username = User::where('id', $request->user_id)->value('username');
+        $notifications_vendor->user_id = $request->input('user_id');
+        $notifications_vendor->product_id = $request->input('product_id');
+        $notifications_vendor->title = 'New Product Review';
+        $notifications_vendor->subject = 'Someone Reviewed Your Product';
+        $notifications_vendor->description = 'From: '.$username;
+        $notifications_vendor->to_id = $seller_id;
+        $notifications_vendor->from_id = $request->input('user_id');
+        $notifications_vendor->status = 'O';
+        $notifications_vendor->save();
 
         $response = ["message" =>'Rating Added!'];
         return response($response, 200);

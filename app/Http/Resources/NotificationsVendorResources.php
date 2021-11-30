@@ -28,6 +28,7 @@ class NotificationsVendorResources extends JsonResource
             'to_id' => $this->to_id,
             'markRead' => $this->markRead,
             'created_at' => $this->created_at,
+            'new' => $this->new,
         ];
     }
 }
