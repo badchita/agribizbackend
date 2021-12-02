@@ -22,6 +22,6 @@ class Products extends Model
 
     public function product_ratings()
     {
-        return $this->hasMany(ProductRatings::class, 'product_id');
+        return $this->hasMany(ProductRatings::class, 'product_id')->orderBy("created_at", "DESC");
     }
 }

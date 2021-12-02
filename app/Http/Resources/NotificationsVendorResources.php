@@ -30,7 +30,7 @@ class NotificationsVendorResources extends JsonResource
             'markRead' => $this->markRead,
             'created_at' => $this->created_at,
             'new' => $this->new,
-            'orders' => Orders::findOrFail($this->order_id),
+            'orders' => Orders::find($this->order_id),
         ];
     }
 }

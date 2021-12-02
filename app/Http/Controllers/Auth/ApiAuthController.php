@@ -81,8 +81,8 @@ class ApiAuthController extends Controller
     }
 
     public function logout (Request $request) {
-        $token = $request->user()->token();
-        $token->revoke();
+        // $token = $request->user()->token();
+        // $token->revoke();
         User::where(['id'=> $request->user_id])->update([
             'isOnline' => 0,
         ]);

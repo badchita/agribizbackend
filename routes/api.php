@@ -50,9 +50,9 @@ Route::post('route',[Controller:: class, 'method'])->middleware('api.admin');
 
 Route::middleware('auth:api')->group(function () {
     // our routes to be protected will go in here
-    Route::post('/logout', [ApiAuthController::class, 'logout'])->name('logout.api');
     Route::get('/articles', [ArticleController::class, 'index'])->middleware('api.admin')->name('articles');
 });
+Route::post('/logout', [ApiAuthController::class, 'logout'])->name('logout.api');
 
 Route::get('/products', [ProductsController::class, 'index'])->name('products');
 Route::get('/product/{id}', [ProductsController::class, 'show'])->name('product');
