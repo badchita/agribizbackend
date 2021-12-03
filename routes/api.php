@@ -100,7 +100,7 @@ Route::get('/like_products/{product_id}/{user_id?}', [LikeProductsController::cl
 Route::post('/like_products', [LikeProductsController::class, 'store'])->name('like_products');
 Route::patch('/like_products', [LikeProductsController::class, 'archive'])->name('like_products');
 
-Route::get('/dashboards/{user_id}', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboards', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/dashboard/{id}', [DashboardController::class, 'show'])->name('dashboard');
 Route::post('/dashboard', [DashboardController::class, 'store'])->name('dashboard');
 

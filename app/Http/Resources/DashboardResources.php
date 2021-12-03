@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DashboardResources extends JsonResource
@@ -15,6 +16,7 @@ class DashboardResources extends JsonResource
             'yearly_income' => $this->yearly_income,
             'year_income' => $this->year_income,
             'user_id' => $this->user_id,
+            'seller' => User::find($this->user_id),
             'orders' => OrdersResources::collection($this->whenLoaded('orders')),
         ];
     }

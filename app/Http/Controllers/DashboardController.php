@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Dashboard;
 use App\Http\Resources\DashboardResources;
+use App\Models\Orders;
 
 class DashboardController extends Controller
 {
-    public function index($user_id)
+    public function index(Request $request)
     {
-        $dashboard = Dashboard::select('*')->where('user_id', $user_id)->get();
+        $offset = $request->offset;
+        $limit = $request->limit;
+        $user_id = $request->user_id;
+
+        $dashboard = Dashboard::select('*')->where('user_Id', '!=', $user_id)->offset($offset)->limit($limit)->get();
         return DashboardResources::collection($dashboard->loadMissing(['orders']));
     }
 
@@ -26,8 +31,7 @@ class DashboardController extends Controller
 
     public function show($id)
     {
-        $dashboard = Dashboard::find($id);
-
+        $dashboard = Dashboard::where('user_id', $id)->first();
         return new DashboardResources($dashboard->loadMissing(['orders']));
     }
 }
