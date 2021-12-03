@@ -60,7 +60,8 @@ Route::post('/product', [ProductsController::class, 'store'])->name('product');
 Route::put('/product', [ProductsController::class, 'update'])->name('product');
 Route::patch('/product', [ProductsController::class, 'archive'])->name('product');
 Route::delete('/product/{id}', [ProductsController::class, 'destroy'])->name('product');
-Route::get('/product/search/{name}', [ProductsController::class, 'search'])->name('product');
+Route::get('/product/search/{name}/{user_id}', [ProductsController::class, 'search'])->name('product');
+Route::get('/product/searchall/{name}', [ProductsController::class, 'searchAll'])->name('product');
 Route::get('/customer/products', [ProductsController::class, 'all'])->name('products');
 //admin
 Route::get('/admin/products', [ProductsController::class, 'indexAdmin'])->name('products');
@@ -73,7 +74,8 @@ Route::post('/address', [AddressesController::class, 'store'])->name('address');
 Route::put('/address', [AddressesController::class, 'update'])->name('address');
 Route::patch('/address', [AddressesController::class, 'archive'])->name('address');
 Route::delete('/address/{id}', [AddressesController::class, 'destroy'])->name('address');
-Route::get('/address/search/{name}', [AddressesController::class, 'search'])->name('address');
+Route::get('/address/search/{name}/{user_id}', [AddressesController::class, 'search'])->name('address');
+Route::get('/address/searchall/{name}', [AddressesController::class, 'searchAll'])->name('address');
 //admin
 Route::get('/admin/addresses', [AddressesController::class, 'indexAdmin'])->name('addresses');
 
@@ -85,6 +87,7 @@ Route::put('/order', [OrdersController::class, 'store'])->name('order');
 Route::patch('/order', [OrdersController::class, 'archive'])->name('order');
 Route::delete('/order/{id}', [OrdersController::class, 'destroy'])->name('order');
 Route::get('/order/search/{order_number}/{seller_id}', [OrdersController::class, 'search'])->name('order');
+Route::get('/order/searchall/{order_number}', [OrdersController::class, 'searchAll'])->name('order');
 Route::patch('/order/update_status', [OrdersController::class, 'updateStatus'])->name('order');
 //admin
 Route::get('/admin/orders', [OrdersController::class, 'indexAdmin'])->name('order');

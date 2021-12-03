@@ -156,10 +156,14 @@ class OrdersController extends Controller
         return OrdersResources::collection($orders);
     }
 
+    public function searchAll($order_number)
+    {
+        $orders = Orders::select('*')->where('order_number', 'LIKE', $order_number . '%')->get();
+        return OrdersResources::collection($orders);
+    }
+
     public function updateStatus(Request $request)
     {
-        $username = User::where('id', $request->seller_id)->value('username');
-        $notifications_vendor = new NotificationsVendor;
         if ($request->order_status == '4') {
             $dashboard = Dashboard::where('id', $request->seller_id)->value('week_income');
             $product = Products::where('id', $request->product_id)->value('quantity');
@@ -183,6 +187,8 @@ class OrdersController extends Controller
         }
 
         if ($request->order_status == '1' || $request->order_status == '2' || $request->order_status == '3') {
+            $username = User::where('id', $request->seller_id)->value('username');
+            $notifications_vendor = new NotificationsVendor;
             if ($request->order_status == '1') {
                 $title = 'Order Has Been Accepted';
                 $subject = 'Order '.$request->order_number.' Has Been Accpeted By The Seller';

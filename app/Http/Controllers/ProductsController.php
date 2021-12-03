@@ -120,7 +120,12 @@ class ProductsController extends Controller
         return null;
     }
 
-    public function search($name)
+    public function search($name, $user_id)
+    {
+        return Products::select('*')->where('name', 'LIKE', $name . '%')->where('user_id', $user_id)->get();
+    }
+
+    public function searchAll($name)
     {
         return Products::select('*')->where('name', 'LIKE', $name . '%')->get();
     }

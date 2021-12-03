@@ -98,7 +98,12 @@ class AddressesController extends Controller
         return null;
     }
 
-    public function search($name)
+    public function search($name, $user_id)
+    {
+        return Addresses::select('*')->where('city', 'LIKE', $name . '%')->where('user_id', $user_id)->get();
+    }
+
+    public function searchAll($name)
     {
         return Addresses::select('*')->where('city', 'LIKE', $name . '%')->get();
     }
