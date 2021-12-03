@@ -41,6 +41,11 @@ class User extends Authenticatable
         return $this->hasMany(NotificationsVendor::class, 'to_id')->orderBy("created_at", "DESC");
     }
 
+    public function cart()
+    {
+        return $this->hasMany(Cart::class, 'user_id');
+    }
+
     protected $hidden = [
         'password',
         'remember_token',

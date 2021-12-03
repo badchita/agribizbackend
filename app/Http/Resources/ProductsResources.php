@@ -35,6 +35,7 @@ class ProductsResources extends JsonResource
             'addresses_detail' => Addresses::findOrFail($this->product_location_id),
             'addresses' => AddressesResources::collection($this->whenLoaded('addresses')),
             'product_ratings' => ProductRatingResources::collection($this->whenLoaded('product_ratings')),
+            'carts' => CartResources::collection($this->whenLoaded('carts')),
         ];
     }
 }

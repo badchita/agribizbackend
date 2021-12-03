@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\ApiAuthController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AddressesController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\NotificationsUserController;
 use App\Http\Controllers\LikeProductsController;
@@ -116,3 +117,7 @@ Route::put('/notification_vendor', [NotificationsVendorController::class, 'updat
 Route::get('/notification_vendor/{id}', [NotificationsVendorController::class, 'show'])->name('notifications_vendor');
 Route::patch('/notification_vendor/markRead', [NotificationsVendorController::class, 'markAsRead'])->name('notifications_vendor');
 Route::patch('/notification_vendor/updateNew', [NotificationsVendorController::class, 'updateNew'])->name('notifications_vendor');
+
+Route::get('/carts', [CartController::class, 'index'])->name('carts');
+Route::post('/cart', [CartController::class, 'store'])->name('carts');
+Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('carts');

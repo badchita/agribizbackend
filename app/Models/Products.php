@@ -24,4 +24,9 @@ class Products extends Model
     {
         return $this->hasMany(ProductRatings::class, 'product_id')->orderBy("created_at", "DESC");
     }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class, 'product_id')->orderBy("created_at", "DESC");
+    }
 }
