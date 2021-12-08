@@ -8,14 +8,17 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AddressesController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\NotificationsUserController;
 use App\Http\Controllers\LikeProductsController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ConversationsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationsVendorController;
 use App\Http\Controllers\ProductRatingsController;
+use App\Models\Conversations;
 
 /*
 |--------------------------------------------------------------------------
@@ -121,3 +124,9 @@ Route::patch('/notification_vendor/updateNew', [NotificationsVendorController::c
 Route::get('/carts', [CartController::class, 'index'])->name('carts');
 Route::post('/cart', [CartController::class, 'store'])->name('carts');
 Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('carts');
+
+Route::get('/chat/search/{username}', [ChatsController::class, 'search'])->name('chats');
+Route::get('/chats', [ChatsController::class, 'index'])->name('chats');
+
+Route::get('/conversations', [ConversationsController::class, 'index'])->name('conversations');
+Route::post('/conversation', [ConversationsController::class, 'store'])->name('conversations');
