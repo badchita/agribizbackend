@@ -32,6 +32,7 @@ use App\Models\Conversations;
 */
 
 Route::get('/users', [UserController::class, 'index'])->name('user');
+Route::put('/user', [UserController::class, 'update'])->name('user');
 Route::patch('/user', [UserController::class, 'archive'])->name('user');
 Route::patch('/user/update_status_verification', [UserController::class, 'updateStatusVerification'])->name('user');
 Route::get('/user/search/{name}/{user_id}', [UserController::class, 'search'])->name('user');
@@ -66,6 +67,7 @@ Route::patch('/product', [ProductsController::class, 'archive'])->name('product'
 Route::delete('/product/{id}', [ProductsController::class, 'destroy'])->name('product');
 Route::get('/product/search/{name}/{user_id}', [ProductsController::class, 'search'])->name('product');
 Route::get('/product/searchall/{name}', [ProductsController::class, 'searchAll'])->name('product');
+Route::get('/product/searchcustomerall/{name}', [ProductsController::class, 'searchCustomerAll'])->name('product');
 Route::get('/customer/products', [ProductsController::class, 'all'])->name('products');
 //admin
 Route::get('/admin/products', [ProductsController::class, 'indexAdmin'])->name('products');

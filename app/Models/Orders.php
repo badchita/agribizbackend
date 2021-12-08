@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Orders extends Model
 {
-    public function dashboard()
+    public function dashboards()
     {
         return $this->belongsTo(Dashboard::class, 'user_id');
     }

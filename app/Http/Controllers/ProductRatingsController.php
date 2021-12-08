@@ -51,7 +51,7 @@ class ProductRatingsController extends Controller
         $notifications_vendor->status = 'O';
         $notifications_vendor->save();
 
-        $response = ["message" =>'Rating Added!'];
+        $response = ["message" =>'Review Added!'];
         return response($response, 200);
     }
 }

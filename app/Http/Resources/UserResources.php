@@ -31,11 +31,13 @@ class UserResources extends JsonResource
             'status' => $this->status,
             'status_verification' => $this->status_verification,
             'created_at' => $this->created_at,
+            'profile_picture' => $this->profile_picture,
             'orders' => Orders::select('*')->where('user_id', $this->id)->get(),
             'selected_address' => Addresses::find($this->address_id),
             'addresses' => AddressesResources::collection($this->whenLoaded('addresses')),
             'products' => ProductsResources::collection($this->whenLoaded('products')),
             'notifications' => NotificationsVendorResources::collection($this->whenLoaded('notifications_vendor')),
+            'carts' => CartResources::collection($this->whenLoaded('carts')),
         ];
     }
 }

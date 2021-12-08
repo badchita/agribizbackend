@@ -28,7 +28,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        return new UserResources($user->loadMissing(['products'])->loadMissing(['addresses'])->loadMissing(['notifications_vendor']));
+        return new UserResources($user->loadMissing(['products'])->loadMissing(['addresses'])->loadMissing(['notifications_vendor'])->loadMissing(['carts']));
     }
 
     public function update(Request $request)
@@ -42,6 +42,7 @@ class UserController extends Controller
             'joined_date' => $request->joined_date,
             'username' => $request->username,
             'address_id' => $request->address_id,
+            'profile_picture' => $request->profile_picture,
         ]);
 
         $user = User::find($request->id);
@@ -71,5 +72,14 @@ class UserController extends Controller
         $user = User::find($request->id);
 
         return new UserResources($user->loadMissing(['products'])->loadMissing(['addresses']));
+    }
+
+    public function upload(Request $request)
+    {
+        $file_name = time().'_'.$request->file->getClientOriginalName();
+        $request->file('file')->storeAs('uploads', $file_name, 'public');
+
+        $response = ["message" => $file_name];
+        return response($response, 200);
     }
 }

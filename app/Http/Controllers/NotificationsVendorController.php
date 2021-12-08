@@ -68,6 +68,7 @@ class NotificationsVendorController extends Controller
     {
         NotificationsVendor::where(['id' => $request->id])->update([
             'markRead' => $request->markRead,
+            'new' => 0,
         ]);
 
         $response = ["message" =>'1'];

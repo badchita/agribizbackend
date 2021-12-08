@@ -17,7 +17,7 @@ class ProductsController extends Controller
         if ($status == 'O') {
             return Products::select('*')->where('status', 'O')->where('user_id', $user_id)->where('product_status', 'Available')->offset($offset)->limit($limit)->get();
         } else if ($status == 'V') {
-            return Products::select('*')->where('status', 'V')->where('user_id', $user_id)->where('product_status', 'Archive')->orwhere('product_status', 'Out Of Stocks')->offset($offset)->limit($limit)->get();
+            return Products::select('*')->where('status', 'V')->where('user_id', $user_id)->where('product_status', 'Archive')->offset($offset)->limit($limit)->get();
         } else {
             return Products::select('*')->where('user_id', $user_id)->offset($offset)->limit($limit)->get();
         }
@@ -45,6 +45,7 @@ class ProductsController extends Controller
     {
         $offset = $request->offset;
         $limit = $request->limit;
+
         return Products::select('*')->where('status', 'O')->where('product_status', 'Available')->orwhere('product_status', 'Out Of Stocks')->inRandomOrder()->offset($offset)->limit($limit)->get();
     }
 
@@ -128,5 +129,11 @@ class ProductsController extends Controller
     public function searchAll($name)
     {
         return Products::select('*')->where('name', 'LIKE', $name . '%')->get();
+    }
+
+    public function searchCustomerAll($name)
+    {
+        // return Products::select('*')->where('name', 'LIKE', $name . '%')->where('status', 'O')->where('product_status', 'Available')->orwhere('product_status', 'Out Of Stocks')->inRandomOrder()->get();
+        return Products::select('*')->where('name', 'LIKE', $name . '%')->inRandomOrder()->get();
     }
 }

@@ -41,7 +41,7 @@ class User extends Authenticatable
         return $this->hasMany(NotificationsVendor::class, 'to_id')->orderBy("created_at", "DESC");
     }
 
-    public function cart()
+    public function carts()
     {
         return $this->hasMany(Cart::class, 'user_id');
     }
